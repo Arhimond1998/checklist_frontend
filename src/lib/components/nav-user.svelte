@@ -20,7 +20,7 @@
       avatar: string;
     };
   } = $props();
-  console.log({ user });
+
   const sidebar = useSidebar();
 
   const onlogout = () => {

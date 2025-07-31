@@ -54,7 +54,7 @@
 
   <div class="checklist-container">
     {#each items as item (item.id)}
-      <div class="checklist-item">
+      <div class="checklist-item p-3">
         <Button class="remove-btn" onclick={() => removeItem(item.id)} title="Удалить задачу">
           ✕
         </Button>

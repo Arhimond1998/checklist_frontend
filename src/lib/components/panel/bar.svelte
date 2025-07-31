@@ -32,8 +32,6 @@
     }
   };
 
-  $inspect(collapsed)
-  $inspect(ref)
   let onDraggingChange = function (isDraggingStart) {
     let currentSize = ref.getSize();
     if (isDraggingStart) {
