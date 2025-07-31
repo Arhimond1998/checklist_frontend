@@ -4,7 +4,9 @@
   import Checkbox from '$lib/components/ui/checkbox/checkbox.svelte';
   import ChevronRightIcon from '@lucide/svelte/icons/chevron-right';
   import ChevronDownIcon from '@lucide/svelte/icons/chevron-down';
-  import Panel from '$lib/components/panel.svelte';
+  import Panel from '$lib/components/panel/panel.svelte';
+  import Tbar from '$lib/components/panel/tbar.svelte';
+  import Bbar from '$lib/components/panel/bbar.svelte';
   // Инициализируем состояние чеклиста
   let items = $state([]);
 
@@ -33,19 +35,23 @@
   }
 
   async function onSave() {
-    console.log('Save', {items});
+    console.log('Save', { items });
   }
-
 </script>
 
-<Panel class="h-full w-full">
+<Panel>
   {#snippet tbar()}
-    <Button class="justify center self-center mb-2" onclick={addItem}>+ Добавить задачу</Button>
+    <Tbar
+      collapsible={false} 
+      defaultSize={5}
+      ><Button class="justify center mb-2 self-center" onclick={addItem}>+ Добавить задачу</Button
+      ></Tbar
+    >
   {/snippet}
   {#snippet bbar()}
-    <Button onclick={onSave}>Сохранить</Button>
+    <Bbar collapsible={false} defaultSize={5}><Button onclick={onSave}>Сохранить</Button></Bbar>
   {/snippet}
-  <div class="w-full h-full">
+
   <div class="checklist-container">
     {#each items as item (item.id)}
       <div class="checklist-item">
@@ -84,12 +90,9 @@
         </div>
       {/if}
     {/each}
-
-    
   </div>
-</div>
+  
 </Panel>
-
 
 <style>
   .checklist-item {
@@ -100,7 +103,8 @@
     gap: 10px;
   }
 
-  input[type='text'], textarea {
+  input[type='text'],
+  textarea {
     flex-grow: 1;
     padding: 8px 12px;
     border: 1px solid #ddd;
@@ -108,7 +112,8 @@
     font-size: 16px;
   }
 
-  input[type='text']:focus, textarea:focus {
+  input[type='text']:focus,
+  textarea:focus {
     outline: none;
     border-color: #646cff;
   }
