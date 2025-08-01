@@ -7,7 +7,7 @@
   let { children } = $props();
   let breadcrumb = $state();
   onclick = function (event) {
-    breadcrumb = event.target.innerText;
+    // breadcrumb = event.target.innerText;
   }
 </script>
 

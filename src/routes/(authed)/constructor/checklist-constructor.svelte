@@ -42,18 +42,21 @@
 <Panel>
   {#snippet tbar()}
     <Tbar
-      collapsible={false} 
-      defaultSize={5}
+      collapsible={true} 
+      defaultSize={10}
       ><Button class="justify center mb-2 self-center" onclick={addItem}>+ Добавить задачу</Button
       ></Tbar
     >
   {/snippet}
   {#snippet bbar()}
-    <Bbar collapsible={false} defaultSize={5}><Button onclick={onSave}>Сохранить</Button></Bbar>
+    <Bbar collapsible={true} defaultSize={10}>
+      <Button onclick={onSave}>Сохранить</Button>
+    </Bbar>
   {/snippet}
 
   <div class="checklist-container">
     {#each items as item (item.id)}
+      <div class="checklist-item-total">
       <div class="checklist-item p-3">
         <Button class="remove-btn" onclick={() => removeItem(item.id)} title="Удалить задачу">
           ✕
@@ -69,7 +72,7 @@
         <Button
           class="remove-btn"
           onclick={() => updateItem(item.id, { showDesc: !item.showDesc })}
-          title={item.showDesc ? 'Удалить подсказку' : 'Добавить подсказку'}
+          title="Подсказка для задачи"
         >
           {#if item.showDesc}
             <ChevronDownIcon />
@@ -79,7 +82,7 @@
         </Button>
       </div>
       {#if item.showDesc}
-        <div>
+        <div class="p-1">
           <!-- svelte-ignore element_invalid_self_closing_tag -->
           <textarea
             value={item.description}
@@ -89,7 +92,9 @@
           />
         </div>
       {/if}
+      </div>
     {/each}
+    
   </div>
   
 </Panel>
@@ -101,6 +106,10 @@
     margin-bottom: 10px;
     border-bottom: 1px solid #eee;
     gap: 10px;
+  }
+
+  .checklist-item-total:hover {
+    border: 1px solid #080808;
   }
 
   input[type='text'],

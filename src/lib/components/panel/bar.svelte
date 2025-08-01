@@ -17,11 +17,6 @@
   let draggingStartSize = $state(0);
   let draggingEndSize = $state(0);
 
-  if (!resizable) {
-    maxSize = defaultSize;
-    minSize = defaultSize;
-  }
-
   let onClickMimick = function () {
     if (collapsible) {
       if (ref.isCollapsed()) {
@@ -38,17 +33,22 @@
       draggingStartSize = currentSize;
     } else {
       draggingEndSize = currentSize;
-      if (Math.abs(draggingEndSize - draggingStartSize) < 0.0000001) onClickMimick();
+      if (Math.abs(draggingEndSize - draggingStartSize) < 0.0000001 || !resizable) onClickMimick();
     }
   };
+
 </script>
 
+{#snippet handle()}
+  <Resizable.Handle {withHandle} {onDraggingChange} disabled={!resizable} />
+{/snippet}
+
 {#if (resizable || collapsible) && resizePosition === 'before'}
-  <Resizable.Handle {withHandle} {onDraggingChange}/>
+  {@render handle()}
 {/if}
 
 <Resizable.Pane
-  class={resizable || collapsible ? '' : 'outline'}
+  class="bg-gray-100"
   bind:this={ref}
   collapsedSize={0}
   {defaultSize}
@@ -59,6 +59,7 @@
 >
   {@render children?.()}
 </Resizable.Pane>
+
 {#if (resizable || collapsible) && resizePosition === 'after'}
-  <Resizable.Handle {withHandle} {onDraggingChange}/>
+  {@render handle()}
 {/if}
