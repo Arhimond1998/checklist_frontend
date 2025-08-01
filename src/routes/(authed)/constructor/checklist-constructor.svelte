@@ -7,6 +7,7 @@
   import Panel from '$lib/components/panel/panel.svelte';
   import Tbar from '$lib/components/panel/tbar.svelte';
   import Bbar from '$lib/components/panel/bbar.svelte';
+  import AttachButton from '$lib/components/attach-button/button.svelte'
   // Инициализируем состояние чеклиста
   let items = $state([]);
 
@@ -68,9 +69,18 @@
           oninput={(e) => updateItem(item.id, { text: e.target.value })}
           placeholder="Введите задачу"
         />
-
+        <AttachButton></AttachButton>
+        <!-- <Button
+          onclick={() => updateItem(item.id, { showDesc: !item.showDesc })}
+          title="Прикрепить фото"
+        >
+          {#if item.showDesc}
+            <ChevronDownIcon />
+          {:else}
+            <ChevronRightIcon />
+          {/if}
+        </Button> -->
         <Button
-          class="remove-btn"
           onclick={() => updateItem(item.id, { showDesc: !item.showDesc })}
           title="Подсказка для задачи"
         >
