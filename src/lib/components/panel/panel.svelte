@@ -11,7 +11,7 @@
     <Resizable.PaneGroup direction="vertical">
       {@render tbar?.()}
       <Resizable.Pane defaultSize={200}>
-        <ScrollArea class="h-full">
+        <ScrollArea class="h-full w-full overflow-auto">
           {@render children?.()}
         </ScrollArea>
       </Resizable.Pane>
