@@ -48,7 +48,7 @@
 {/if}
 
 <Resizable.Pane
-  class="bg-gray-100"
+  class="bg-gray-100 h-full w-full p-1"
   bind:this={ref}
   collapsedSize={0}
   {defaultSize}
