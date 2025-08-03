@@ -6,8 +6,16 @@
   import PhotoViewer from '$lib/components/photo-viewer/photo-viewer.svelte';
   import Trash_2 from '@lucide/svelte/icons/trash-2';
   import DropdownMenu from './dropdown-menu.svelte';
+  import SelectWeight from './select-weight.svelte';
   let { item = $bindable(), files = $bindable([]), removeItem, updateItem } = $props();
+
+  let isOpenDesc = $state(false);
+  let isOpenWeightWin = $state(false);
+  let weight = $state(1)
+  $inspect(weight, 'weight')
 </script>
+
+<SelectWeight bind:isDialogOpen={isOpenWeightWin} bind:weight={weight}/>
 
 <div class="checklist-item-total w-full">
   <div class="checklist-item w-full p-3">
@@ -22,22 +30,12 @@
       class="w-full"
     />
     <AttachButton bind:files />
-    <DropdownMenu />
-    <Button
-      onclick={() => updateItem(item.id, { showDesc: !item.showDesc })}
-      title="Подсказка для задачи"
-    >
-      {#if item.showDesc}
-        <ChevronDownIcon />
-      {:else}
-        <ChevronRightIcon />
-      {/if}
-    </Button>
+    <DropdownMenu bind:isOpenDesc bind:isOpenWeightWin />
   </div>
   <div>
     <PhotoViewer bind:files canDelete={true} />
   </div>
-  {#if item.showDesc}
+  {#if isOpenDesc}
     <div class="p-1">
       <!-- svelte-ignore element_invalid_self_closing_tag -->
       <textarea

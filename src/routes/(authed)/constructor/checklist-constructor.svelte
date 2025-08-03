@@ -37,7 +37,7 @@
 <Panel>
   {#snippet tbar()}
     <Tbar collapsible={false} defaultSize={15}
-      ><Button class="justify center mb-2 h-full self-center" onclick={addItem}
+      ><Button class="justify center mb-2 h-9/10 self-center" onclick={addItem}
         >+ Добавить задачу</Button
       ></Tbar
     >
