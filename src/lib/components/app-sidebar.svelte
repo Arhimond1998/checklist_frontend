@@ -35,52 +35,6 @@
           }
         ]
       },
-      {
-        title: 'Documentation',
-        url: '#',
-        icon: BookOpenIcon,
-        items: [
-          {
-            title: 'Introduction',
-            url: '#'
-          },
-          {
-            title: 'Get Started',
-            url: '#'
-          },
-          {
-            title: 'Tutorials',
-            url: '#'
-          },
-          {
-            title: 'Changelog',
-            url: '#'
-          }
-        ]
-      },
-      {
-        title: 'Settings',
-        url: '#',
-        icon: Settings2Icon,
-        items: [
-          {
-            title: 'General',
-            url: '#'
-          },
-          {
-            title: 'Team',
-            url: '#'
-          },
-          {
-            title: 'Billing',
-            url: '#'
-          },
-          {
-            title: 'Limits',
-            url: '#'
-          }
-        ]
-      }
     ],
     navSecondary: [
       {
@@ -154,8 +108,8 @@
   </Sidebar.Header>
   <Sidebar.Content>
     <NavMain items={data.navMain} />
-    <NavProjects projects={data.projects} />
-    <NavSecondary items={data.navSecondary} class="mt-auto" />
+    <!-- <NavProjects projects={data.projects} /> -->
+    <!-- <NavSecondary items={data.navSecondary} class="mt-auto" /> -->
   </Sidebar.Content>
   <Sidebar.Footer>
     <NavUser user={data.user} />
