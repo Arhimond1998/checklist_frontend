@@ -4,9 +4,7 @@
   import ChevronRightIcon from '@lucide/svelte/icons/chevron-right';
   import ChevronDownIcon from '@lucide/svelte/icons/chevron-down';
   import PhotoViewer from '$lib/components/photo-viewer/photo-viewer.svelte';
-  let { item, removeItem, updateItem } = $props();
-  let files = $state([]);
-  console.log({ item });
+  let { item = $bindable(), files = $bindable([]), removeItem, updateItem } = $props();
 </script>
 
 <div class="checklist-item-total w-full">

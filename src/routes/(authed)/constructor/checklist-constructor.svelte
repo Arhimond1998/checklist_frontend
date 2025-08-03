@@ -8,52 +8,48 @@
   import ChecklistItem from './checklist-item.svelte';
   // Инициализируем состояние чеклиста
   let items = $state([]);
-
+  let { ref = $bindable() } = $props();
   // Функция добавления новой строки
   function addItem() {
-    items = [
-      ...items,
-      {
-        id: crypto.randomUUID(),
-        text: `Новая задача ${items.length + 1}`,
-        checked: false,
-        description: null,
-        showDesc: false
-      }
-    ];
+    items.push({
+      id: crypto.randomUUID(),
+      text: `Новая задача ${items.length + 1}`,
+      description: null,
+      showDesc: false,
+      files: []
+    });
   }
 
   // Функция удаления строки
   function removeItem(id) {
     items = items.filter((item) => item.id !== id);
   }
-
   // Функция обновления текста
   function updateItem(id, newData) {
     items = items.map((item) => (item.id === id ? { ...item, ...newData } : item));
   }
-
-  async function onSave() {
+  async function onSave(a, b, c) {
     console.log('Save', { items });
   }
 </script>
 
-<Panel>
+<Panel bind:this={ref}>
   {#snippet tbar()}
-    <Tbar collapsible={true} defaultSize={15}
-      ><Button class="justify center mb-2 self-center h-full" onclick={addItem}>+ Добавить задачу</Button
+    <Tbar collapsible={false} defaultSize={15}
+      ><Button class="justify center mb-2 h-full self-center" onclick={addItem}
+        >+ Добавить задачу</Button
       ></Tbar
     >
   {/snippet}
   {#snippet bbar()}
-    <Bbar collapsible={true} defaultSize={15}>
-      <Button onclick={onSave} class="justify center mb-2 self-center h-full">Сохранить</Button>
+    <Bbar collapsible={false} defaultSize={15}>
+      <Button onclick={onSave} class="justify center mb-2 h-full self-center">Сохранить</Button>
     </Bbar>
   {/snippet}
 
   <div class="checklist-container w-full">
     {#each items as item (item.id)}
-      <ChecklistItem item={item} {removeItem} {updateItem}></ChecklistItem>
+      <ChecklistItem {item} bind:files={item.files} {removeItem} {updateItem}></ChecklistItem>
     {/each}
   </div>
 </Panel>
