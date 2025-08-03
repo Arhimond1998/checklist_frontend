@@ -11,24 +11,32 @@
 
   // Состояния компонента
   // let files = $state([]);
-  let { files = $bindable([]), canDelete = false } = $props();
+  let { files = $bindable([]), canDelete = false, isBlob = true } = $props();
 
   let isDialogOpen = $state(false);
   let currentImageIndex = $state(null);
 
   $effect(() => {
     return () => {
-      objectUrls.forEach((url) => URL.revokeObjectURL(url));
+      if (isBlob) {
+        objectUrls.forEach((url) => URL.revokeObjectURL(url));
+      }
     };
   });
 
-  $inspect(files);
 
   let objectUrls = $derived.by(() => {
     let res = [];
-    files.forEach((file) => {
-      res.push(URL.createObjectURL(file));
-    });
+    if (isBlob) {
+      files.forEach((file) => {
+        res.push(URL.createObjectURL(file));
+      });
+    } else {
+      files.forEach((file) => {
+        res.push(file);
+      });
+    }
+
     return res;
   });
 

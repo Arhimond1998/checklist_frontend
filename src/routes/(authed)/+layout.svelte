@@ -8,7 +8,6 @@
 
   let { children } = $props();
   let breadcrumbs = $derived($page.url.pathname.split('/').filter(Boolean));
-  $inspect(breadcrumbs);
 </script>
 
 {#snippet breadcrumb({ href, text })}
@@ -24,11 +23,11 @@
         <Sidebar.Trigger class="-ml-1" />
       </div>
       <Separator orientation="vertical" />
-      {@render breadcrumb( {href:'/', text:'home'})}
+      {@render breadcrumb({ href: '/', text: 'home' })}
 
-        {#each breadcrumbs as text, i}
-          {@render breadcrumb({href: text, text: text})}
-        {/each}
+      {#each breadcrumbs as text, i}
+        {@render breadcrumb({ href: text, text: text })}
+      {/each}
       <!-- <h1 class="text-center font-serif text-4xl font-bold text-gray-800">
         
       </h1> -->

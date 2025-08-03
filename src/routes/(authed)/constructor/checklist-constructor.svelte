@@ -5,10 +5,11 @@
   import Panel from '$lib/components/panel/panel.svelte';
   import Tbar from '$lib/components/panel/tbar.svelte';
   import Bbar from '$lib/components/panel/bbar.svelte';
-  import ChecklistItem from './checklist-item.svelte';
+  import ChecklistConstructorItem from './checklist-constructor-item.svelte';
+    
+  
   // Инициализируем состояние чеклиста
   let items = $state([]);
-  let { ref = $bindable() } = $props();
   // Функция добавления новой строки
   function addItem() {
     items.push({
@@ -33,7 +34,7 @@
   }
 </script>
 
-<Panel bind:this={ref}>
+<Panel>
   {#snippet tbar()}
     <Tbar collapsible={false} defaultSize={15}
       ><Button class="justify center mb-2 h-full self-center" onclick={addItem}
@@ -49,7 +50,8 @@
 
   <div class="checklist-container w-full">
     {#each items as item (item.id)}
-      <ChecklistItem {item} bind:files={item.files} {removeItem} {updateItem}></ChecklistItem>
+      <ChecklistConstructorItem {item} bind:files={item.files} {removeItem} {updateItem}
+      ></ChecklistConstructorItem>
     {/each}
   </div>
 </Panel>

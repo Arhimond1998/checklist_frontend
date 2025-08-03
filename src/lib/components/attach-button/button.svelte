@@ -8,7 +8,6 @@
   function openFileDialog() {
     inputElement.click();
   }
-  $inspect(inputElement)
   // Обработка выбранных файлов
   function handleFiles(event) {
     files = [...event.target.files]

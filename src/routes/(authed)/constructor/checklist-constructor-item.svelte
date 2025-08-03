@@ -4,12 +4,16 @@
   import ChevronRightIcon from '@lucide/svelte/icons/chevron-right';
   import ChevronDownIcon from '@lucide/svelte/icons/chevron-down';
   import PhotoViewer from '$lib/components/photo-viewer/photo-viewer.svelte';
+  import Trash_2 from '@lucide/svelte/icons/trash-2';
+  import DropdownMenu from './dropdown-menu.svelte';
   let { item = $bindable(), files = $bindable([]), removeItem, updateItem } = $props();
 </script>
 
 <div class="checklist-item-total w-full">
   <div class="checklist-item w-full p-3">
-    <Button class="remove-btn" onclick={() => removeItem(item.id)} title="Удалить задачу">✕</Button>
+    <Button class="remove-btn" onclick={() => removeItem(item.id)} title="Удалить задачу"
+      ><Trash_2 /></Button
+    >
     <input
       type="text"
       value={item.text}
@@ -18,6 +22,7 @@
       class="w-full"
     />
     <AttachButton bind:files />
+    <DropdownMenu />
     <Button
       onclick={() => updateItem(item.id, { showDesc: !item.showDesc })}
       title="Подсказка для задачи"
@@ -30,7 +35,7 @@
     </Button>
   </div>
   <div>
-    <PhotoViewer bind:files canDelete={true}/>
+    <PhotoViewer bind:files canDelete={true} />
   </div>
   {#if item.showDesc}
     <div class="p-1">
