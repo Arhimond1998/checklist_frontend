@@ -30,7 +30,7 @@
     </Button>
   </div>
   <div>
-    <PhotoViewer bind:files />
+    <PhotoViewer bind:files canDelete={true}/>
   </div>
   {#if item.showDesc}
     <div class="p-1">
