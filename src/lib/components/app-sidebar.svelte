@@ -34,7 +34,7 @@
             url: '/checklist/2'
           }
         ]
-      },
+      }
     ],
     navSecondary: [
       {
@@ -75,13 +75,10 @@
   import NavUser from './nav-user.svelte';
   import * as Sidebar from '$lib/components/ui/sidebar/index.js';
   import CommandIcon from '@lucide/svelte/icons/command';
+  import { getUserData } from '$lib/utils';
   let { ref = $bindable(null), ...restProps } = $props();
-  try {
-    userData = JSON.parse(localStorage.getItem('userData'));
-  } catch (error) {
-    console.log('Not logged in');
-    userData = {}
-  }
+
+  userData = getUserData();
 </script>
 
 <Sidebar.Root bind:ref variant="inset" {...restProps}>

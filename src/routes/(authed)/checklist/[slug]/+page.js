@@ -1,8 +1,12 @@
+import axios from 'axios';
+
 export async function load(params) {
+  const resp = await axios.get('http://127.0.0.1:8080/api/checklists/');
+  console.log({resp});
   return {
     data: [
       {
-        id: 1,
+        id: 1, 
         description: 'Первое задание',
         files: [
           'https://opis-cdn.tinkoffjournal.ru/mercury/z99km5RCsG.in-out-shrek-5-preview.jpg?preset=image_1280w_2x'
@@ -34,7 +38,7 @@ export async function load(params) {
       },
       {
         id: 4,
-        description: 'qwe',
+      description: 'qwe',
         files: [
           'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Happy_Shrek_%28cropped%29.jpg/330px-Happy_Shrek_%28cropped%29.jpg'
         ],
