@@ -11,8 +11,8 @@
 </script>
 
 {#snippet breadcrumb({ href, text })}
-  <span>/</span>
-  <a {href}>{text}</a>
+  <span>/ {text}</span>
+  <!-- <a {href}>{text}</a> -->
 {/snippet}
 
 <Sidebar.Provider class="h-screen w-screen">

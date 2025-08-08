@@ -17,7 +17,6 @@
 
     // Конвертируем в объект
     const data = Object.fromEntries(formData);
-    console.log('Отправляемые данные:', data);
 
     try {
       const resp = await bffPost('api/auth/login', data);
@@ -29,7 +28,7 @@
       goto('/');
     } catch (error) {
       console.error('Ошибка отправки:', error);
-      // Обработка ошибок (показать уведомление и т.д.)
+      alert('Неправильный логин пароль');
     }
   };
 </script>

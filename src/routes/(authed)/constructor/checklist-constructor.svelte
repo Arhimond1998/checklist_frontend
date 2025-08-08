@@ -6,10 +6,11 @@
   import Tbar from '$lib/components/panel/tbar.svelte';
   import Bbar from '$lib/components/panel/bbar.svelte';
   import ChecklistConstructorItem from './checklist-constructor-item.svelte';
-    
-  
+  import SaveWindow from './save-window.svelte';
+
   // Инициализируем состояние чеклиста
   let items = $state([]);
+  let saveWindowOpen = $state(false);
   // Функция добавления новой строки
   function addItem() {
     items.push({
@@ -31,6 +32,7 @@
   }
   async function onSave(a, b, c) {
     console.log('Save', { items });
+    saveWindowOpen = true;
   }
 </script>
 
@@ -55,3 +57,5 @@
     {/each}
   </div>
 </Panel>
+
+<SaveWindow bind:isDialogOpen={saveWindowOpen} saveData={items}></SaveWindow>

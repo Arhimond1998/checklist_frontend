@@ -5,7 +5,7 @@
   import QuestionMarkIcon from '@lucide/svelte/icons/message-circle-question';
   import PhotoViewer from '$lib/components/photo-viewer/photo-viewer.svelte';
   import { XMarkCheckbox } from '$lib/components/ui/checkbox';
-  
+
   import {
     Dialog,
     DialogContent,
@@ -43,20 +43,21 @@
     if (status === 0) {
       indeterminate = true;
     }
+    console.log('qwe')
   };
-
-
 </script>
 
 <div class="checklist-item-total w-full">
   <div class="checklist-item w-full p-3">
-    <XMarkCheckbox bind:ref {indeterminate} onclick={onCheckClick} {checked} name={item.id}/>
+    <XMarkCheckbox bind:ref {indeterminate} onclick={onCheckClick} {checked} name={item.id} />
     {#if index !== null}
-    <div class="mr-2">{index}.</div>
+      <div class="mr-2">{index}.</div>
     {/if}
     <div class="flex-grow">{item.text}</div>
     <div class="flex items-center space-x-2">
-      <QuestionMarkIcon onclick={() => isDialogOpen = true} />
+      {#if item.showDesc}
+        <QuestionMarkIcon onclick={() => (isDialogOpen = true)} />
+      {/if}
     </div>
   </div>
   <div>
@@ -69,14 +70,14 @@
     <DialogHeader>
       <DialogTitle>Описание задачи</DialogTitle>
     </DialogHeader>
+
     <span>{item.description}</span>
 
     <DialogFooter>
-      <Button variant="outline" onclick={() => isDialogOpen = false}>Закрыть</Button>
+      <Button variant="outline" onclick={() => (isDialogOpen = false)}>Закрыть</Button>
     </DialogFooter>
   </DialogContent>
 </Dialog>
-
 
 <style>
   .checklist-item {

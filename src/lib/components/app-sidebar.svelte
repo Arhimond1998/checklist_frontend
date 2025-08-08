@@ -24,16 +24,16 @@
         title: 'Чеклисты',
         url: '/checklist',
         icon: BookCheckIcon,
-        items: [
-          {
-            title: 'Checklist 1',
-            url: '/checklist/1'
-          },
-          {
-            title: 'Checklist 2',
-            url: '/checklist/2'
-          }
-        ]
+        // items: [
+        //   {
+        //     title: 'Checklist 1',
+        //     url: '/checklist/1'
+        //   },
+        //   {
+        //     title: 'Checklist 2',
+        //     url: '/checklist/2'
+        //   }
+        // ]
       }
     ],
     navSecondary: [

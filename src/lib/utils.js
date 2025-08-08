@@ -40,9 +40,19 @@ export function getAuthHeaders() {
 
 export const api = axios.create({ baseURL: 'http://127.0.0.1:8080' });
 
-export async function bffPost(url, data) {
+export async function bffDelete(url, data) {
   const token = getAuthToken();
 
+  return await api.delete(url, { headers: { ...getAuthHeaders() } });
+}
+
+export async function bffPatch(url, data) {
+  const token = getAuthToken();
+  return await api.patch(url, data, { headers: { ...getAuthHeaders() } });
+}
+
+export async function bffPost(url, data) {
+  const token = getAuthToken();
   return await api.post(url, data, { headers: { ...getAuthHeaders() } });
 }
 export async function bffGet(url) {

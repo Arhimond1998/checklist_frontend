@@ -5,6 +5,7 @@
   import ChecklistItem from './checklist-item.svelte';
 
   const { data } = $props();
+  $inspect(data, 'data');
   const onSave = async (event) => {
     console.log(data.data);
   };
@@ -16,6 +17,7 @@
       <Button onclick={onSave} class="justify center mb-2 h-full self-center">Сохранить</Button>
     </Bbar>
   {/snippet}
+  
 
   <div class="checklist-container w-full">
     {#each data.data as item, i (item.id)}
