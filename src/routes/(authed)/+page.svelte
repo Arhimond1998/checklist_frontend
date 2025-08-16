@@ -1,23 +1,32 @@
 <script>
-    import Panel from "$lib/components/panel/panel.svelte";
-    import Lbar from "$lib/components/panel/lbar.svelte";
-    import Bbar from "$lib/components/panel/bbar.svelte";
-    import Rbar from "$lib/components/panel/rbar.svelte";
-    import Tbar from "$lib/components/panel/tbar.svelte";
+    import { goto } from '$app/navigation';
+  import Button from '$lib/components/ui/button/button.svelte';
+  import * as Card from '$lib/components/ui/card/index.js';
+  
 </script>
 
-<Panel>
-    {#snippet lbar()}
-        <Lbar resizable={true}>left</Lbar>
-    {/snippet}
-    {#snippet tbar()}
-        <Tbar resizable={true}>top</Tbar>
-    {/snippet}
-    {#snippet bbar()}
-        <Bbar resizable={true}>bot</Bbar>
-    {/snippet}
-    {#snippet rbar()}
-        <Rbar resizable={true}>right</Rbar>
-    {/snippet}
-    center
-</Panel>
+<Card.Root class="w-full max-w-sm">
+  <Card.Header>
+    <Card.Title>Конструктор</Card.Title>
+
+  </Card.Header>
+  <Card.Content>
+    <div>Создание, редактирование, удаление чеклистов</div>
+  </Card.Content>
+  <Card.Footer class="flex-col gap-2">
+    <Button onclick={() => goto('/constructor')} class="w-full">Перейти</Button>
+  </Card.Footer>
+</Card.Root>
+
+<Card.Root class="w-full max-w-sm">
+  <Card.Header>
+    <Card.Title>Чеклисты</Card.Title>
+
+  </Card.Header>
+  <Card.Content>
+    <div>Заполнение чеклистов</div>
+  </Card.Content>
+  <Card.Footer class="flex-col gap-2">
+    <Button onclick={() => goto('/checklist')} class="w-full">Перейти</Button>
+  </Card.Footer>
+</Card.Root>
