@@ -1,11 +1,8 @@
 <script>
-  import { goto } from '$app/navigation';
   import Button from '$lib/components/ui/button/button.svelte';
   import * as Card from '$lib/components/ui/card/index.js';
-  let { title, id_checklist } = $props();
-  const onOpen = function () {
-    goto(`/checklist/${id_checklist}`);
-  };
+  let { title, id_checklist, onclick, text, ...restProps } = $props();
+  
 </script>
 
 <Card.Root class="w-full max-w-sm">
@@ -17,6 +14,6 @@
     <div>content</div>
   </Card.Content>
   <Card.Footer class="flex-col gap-2">
-    <Button onclick={onOpen} class="w-full">Открыть</Button>
+    <Button {onclick} class="w-full">{text}</Button>
   </Card.Footer>
 </Card.Root>

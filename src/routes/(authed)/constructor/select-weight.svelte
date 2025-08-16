@@ -8,7 +8,7 @@
     DialogTitle
   } from '$lib/components/ui/dialog';
 
-  let { isDialogOpen = $bindable(false), weight = $bindable(1) } = $props();
+  let { isDialogOpen = $bindable(false), weight = $bindable(1)} = $props();
 
   let inputValue = $state(weight);
 
@@ -16,15 +16,11 @@
     isDialogOpen = false;
   };
 
-  $effect(() => {
-    if (!isDialogOpen) {
-        inputValue = weight;
-    }
-  })
-
   const saveAndClose = (event) => {
     weight = Math.min(100, Math.max(0, inputValue));
+    inputValue = weight;
     closeDialog();
+
   };
 </script>
 

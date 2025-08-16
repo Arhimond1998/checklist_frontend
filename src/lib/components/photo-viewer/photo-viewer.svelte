@@ -16,30 +16,6 @@
   let isDialogOpen = $state(false);
   let currentImageIndex = $state(null);
 
-  $effect(() => {
-    return () => {
-      if (isBlob) {
-        objectUrls.forEach((url) => URL.revokeObjectURL(url));
-      }
-    };
-  });
-
-
-  let objectUrls = $derived.by(() => {
-    let res = [];
-    if (isBlob) {
-      files.forEach((file) => {
-        res.push(URL.createObjectURL(file));
-      });
-    } else {
-      files.forEach((file) => {
-        res.push(file);
-      });
-    }
-
-    return res;
-  });
-
   // Закрытие диалога
   function closeDialog() {
     isDialogOpen = false;
@@ -62,20 +38,12 @@
   // Удаление изображения
   function removeImage() {
     if (currentImageIndex === null) return;
-
-    // Освобождение ресурсов
-    URL.revokeObjectURL(objectUrls[currentImageIndex]);
-
     // Удаление файла
     files.splice(currentImageIndex, 1);
     // Закрытие диалога
     isDialogOpen = false;
     currentImageIndex = null;
   }
-  // Очистка при уничтожении компонента
-  onDestroy(() => {
-    objectUrls.forEach((url) => URL.revokeObjectURL(url));
-  });
 </script>
 
 {#if files.length > 0}
@@ -87,7 +55,7 @@
           <!-- Обертка для изображения с относительным позиционированием -->
           <div class="relative">
             <img
-              src={objectUrls[index]}
+              src={files[index]}
               alt="Preview"
               class="h-16 w-full cursor-pointer rounded-md border border-gray-200 object-cover transition-shadow hover:shadow-md"
               onclick={() => openImageDialog(index)}
@@ -123,23 +91,6 @@
     </div>
   </div>
 {/if}
-<!-- {#if files.length > 0}
-  <div class="mb-3">
-    <div class="flex flex-wrap gap-3">
-      {#each files as file, index}
-        <div class="flex w-16 flex-col items-center">
-          <img
-            src={objectUrls[index]}
-            alt="Preview"
-            class="h-16 w-full cursor-pointer rounded-md border border-gray-200 object-cover transition-shadow hover:shadow-md"
-            onclick={() => openImageDialog(index)}
-          />
-          
-        </div>
-      {/each}
-    </div>
-  </div>
-{/if} -->
 <Dialog bind:open={isDialogOpen}>
   <DialogContent>
     <DialogHeader>
@@ -149,7 +100,7 @@
     {#if currentImageIndex !== null}
       <div class="image-preview">
         <img
-          src={objectUrls[currentImageIndex]}
+          src={files[currentImageIndex]}
           alt="Full size preview"
           class="max-h-[70vh] max-w-full object-contain"
         />

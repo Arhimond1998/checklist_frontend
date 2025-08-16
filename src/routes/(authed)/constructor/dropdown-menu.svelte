@@ -3,7 +3,11 @@
   import Button from '$lib/components/ui/button/button.svelte';
   import ElipsisVertical from '@lucide/svelte/icons/ellipsis-vertical';
 
-  let { isOpenWeightWin = $bindable(false), isOpenDesc = $bindable(false) } = $props();
+  let { isOpenWeightWin = $bindable(false), isOpenDesc = $bindable(false), description } = $props();
+
+  if (description) {
+    isOpenDesc = true;
+  }
 </script>
 
 <DropdownMenu.Root>

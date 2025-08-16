@@ -7,15 +7,24 @@
   import Trash_2 from '@lucide/svelte/icons/trash-2';
   import DropdownMenu from './dropdown-menu.svelte';
   import SelectWeight from './select-weight.svelte';
-  let { item = $bindable(), files = $bindable([]), removeItem, updateItem } = $props();
+  let {
+    item = $bindable({ weight: 1, files: [], text: '', id: null, description: '' }),
+    removeItem,
+    updateItem
+  } = $props();
 
+  $inspect(item, 'item constructor');
   let isOpenDesc = $state(false);
   let isOpenWeightWin = $state(false);
-  let weight = $state(1)
-  $inspect(weight, 'weight')
+
+  $effect(() => {
+    if (!isOpenDesc) {
+      item['description'] = '';
+    }
+  });
 </script>
 
-<SelectWeight bind:isDialogOpen={isOpenWeightWin} bind:weight={weight}/>
+<SelectWeight bind:isDialogOpen={isOpenWeightWin} bind:weight={item.weight} />
 
 <div class="checklist-item-total w-full">
   <div class="checklist-item w-full p-3">
@@ -29,11 +38,11 @@
       placeholder="Введите задачу"
       class="w-full"
     />
-    <AttachButton bind:files />
-    <DropdownMenu bind:isOpenDesc bind:isOpenWeightWin />
+    <AttachButton bind:files={item.files} />
+    <DropdownMenu bind:isOpenDesc bind:isOpenWeightWin description={item.description}/>
   </div>
   <div>
-    <PhotoViewer bind:files canDelete={true} />
+    <PhotoViewer bind:files={item.files} canDelete={true} />
   </div>
   {#if isOpenDesc}
     <div class="p-1">

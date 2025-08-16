@@ -40,7 +40,7 @@ export function getAuthHeaders() {
 
 export const api = axios.create({ baseURL: 'http://127.0.0.1:8080' });
 
-export async function bffDelete(url, data) {
+export async function bffDelete(url) {
   const token = getAuthToken();
 
   return await api.delete(url, { headers: { ...getAuthHeaders() } });
@@ -51,10 +51,25 @@ export async function bffPatch(url, data) {
   return await api.patch(url, data, { headers: { ...getAuthHeaders() } });
 }
 
+export async function bffPut(url, data) {
+  const token = getAuthToken();
+  return await api.put(url, data, { headers: { ...getAuthHeaders() } });
+}
+
 export async function bffPost(url, data) {
   const token = getAuthToken();
-  return await api.post(url, data, { headers: { ...getAuthHeaders() } });
+  return await api.post(url, data, {
+    headers: { ...getAuthHeaders() }
+  });
 }
+
+export async function bffUploadFiles(url, data) {
+  const token = getAuthToken();
+  return await api.post(url, data, {
+    headers: { 'Content-Type': 'multipart/form-data', ...getAuthHeaders() }
+  });
+}
+
 export async function bffGet(url) {
   return await api.get(url, { headers: { ...getAuthHeaders() } });
 }

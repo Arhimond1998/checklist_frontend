@@ -1,4 +1,5 @@
 <script>
+  import { goto } from '$app/navigation';
   import Button from '$lib/components/ui/button/button.svelte';
 
   import {
@@ -8,19 +9,25 @@
     DialogFooter,
     DialogTitle
   } from '$lib/components/ui/dialog';
-  import { bffPost } from '$lib/utils';
+  import { bffPut, bffPost } from '$lib/utils';
 
-  let checklist_name = $state('');
-
-  let { saveData, isDialogOpen = $bindable(false) } = $props();
+  let { saveData = $bindable(), isDialogOpen = $bindable(false) } = $props();
   let saveClick = async function () {
+    const data = $state.snapshot(saveData);
+    const postData = { title: data.title, data: { ...data.items } };
+    console.log({ postData });
     if (!checklist_name) {
       return;
     }
     try {
-      const postData = { title: checklist_name, data: {...saveData} };
-      const resp = await bffPost('api/checklists', postData);
+      let resp;
+      if (data.id_checklist) {
+        resp = await bffPut(`api/checklists/${data.id_checklist}`, postData)
+      } else {
+        resp = await bffPost('api/checklists', postData);
+      }
       isDialogOpen = false;
+      goto('/checklist');
     } catch (error) {
       console.log({ error });
     }
@@ -41,7 +48,7 @@
       id="checklist_name"
       type="text"
       placeholder="Имя чеклиста"
-      bind:value={checklist_name}
+      bind:value={saveData.title}
     />
 
     <DialogFooter>

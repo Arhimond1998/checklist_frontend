@@ -1,14 +1,13 @@
 <script>
+  import ChecklistCard from '../../checklist/checklist-card.svelte';
   import { goto } from '$app/navigation';
-  import ChecklistCard from './checklist-card.svelte';
-
   let { data } = $props();
   let colsNum = $state(6);
   $inspect(colsNum);
 
   function onclick(id_checklist) {
     return () => {
-      goto(`/checklist/${id_checklist}`);
+      goto(`/constructor/edit/${id_checklist}`);
     };
   }
 
@@ -35,7 +34,7 @@
       title={checklistItem.title}
       id_checklist={checklistItem.id_checklist}
       onclick={onclick(checklistItem.id_checklist)}
-      text={'Открыть'}
+      text={'Редактировать'}
     ></ChecklistCard>
   {/each}
 </div>

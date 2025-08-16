@@ -28,22 +28,26 @@
   let indeterminate = $state(true);
   let checked = $state(false);
 
+  item.checked = 2;
+
   let onCheckClick = function (event) {
     event.preventDefault();
     status = (status + 1) % 3;
 
     if (status === 1) {
       checked = true;
+      item.checked = 1;
       indeterminate = false;
     }
     if (status === 2) {
       checked = false;
+      item.checked = 0;
       indeterminate = false;
     }
     if (status === 0) {
       indeterminate = true;
+      item.checked = 2;
     }
-    console.log('qwe')
   };
 </script>
 
@@ -55,13 +59,13 @@
     {/if}
     <div class="flex-grow">{item.text}</div>
     <div class="flex items-center space-x-2">
-      {#if item.showDesc}
+      {#if item.description}
         <QuestionMarkIcon onclick={() => (isDialogOpen = true)} />
       {/if}
     </div>
   </div>
   <div>
-    <PhotoViewer bind:files canDelete={false} isBlob={false} />
+    <PhotoViewer {files} canDelete={false} isBlob={false} />
   </div>
 </div>
 

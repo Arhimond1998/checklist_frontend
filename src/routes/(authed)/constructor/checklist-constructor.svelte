@@ -9,29 +9,32 @@
   import SaveWindow from './save-window.svelte';
 
   // Инициализируем состояние чеклиста
-  let items = $state([]);
+  let {
+    checklistData = $bindable({id_checklist: null, title: '', items: []})
+  } = $props()
+  // let items = $state([]);
   let saveWindowOpen = $state(false);
   // Функция добавления новой строки
   function addItem() {
-    items.push({
+    checklistData.items.push({
       id: crypto.randomUUID(),
-      text: `Новая задача ${items.length + 1}`,
+      text: `Новая задача ${checklistData.items.length + 1}`,
       description: null,
-      showDesc: false,
+      weight: 1,
       files: []
     });
   }
 
   // Функция удаления строки
   function removeItem(id) {
-    items = items.filter((item) => item.id !== id);
+    checklistData.items = checklistData.items.filter((item) => item.id !== id);
   }
   // Функция обновления текста
   function updateItem(id, newData) {
-    items = items.map((item) => (item.id === id ? { ...item, ...newData } : item));
+    checklistData.items = checklistData.items.map((item) => (item.id === id ? { ...item, ...newData } : item));
   }
+
   async function onSave(a, b, c) {
-    console.log('Save', { items });
     saveWindowOpen = true;
   }
 </script>
@@ -51,11 +54,11 @@
   {/snippet}
 
   <div class="checklist-container w-full">
-    {#each items as item (item.id)}
-      <ChecklistConstructorItem {item} bind:files={item.files} {removeItem} {updateItem}
+    {#each checklistData.items as item, i (item.id)}
+      <ChecklistConstructorItem bind:item={checklistData.items[i]} {removeItem} {updateItem}
       ></ChecklistConstructorItem>
     {/each}
   </div>
 </Panel>
 
-<SaveWindow bind:isDialogOpen={saveWindowOpen} saveData={items}></SaveWindow>
+<SaveWindow bind:isDialogOpen={saveWindowOpen} bind:saveData={checklistData}></SaveWindow>
