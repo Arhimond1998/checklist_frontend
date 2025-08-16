@@ -38,7 +38,7 @@ export function getAuthHeaders() {
   };
 }
 
-export const api = axios.create();
+export const api = axios.create({ baseURL: '/' });
 
 export async function bffDelete(url) {
   const token = getAuthToken();
