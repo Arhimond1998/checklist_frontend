@@ -38,7 +38,7 @@ export function getAuthHeaders() {
   };
 }
 
-export const api = axios.create({ baseURL: 'http://127.0.0.1:8080' });
+export const api = axios.create({ baseURL: 'http://backend' });
 
 export async function bffDelete(url) {
   const token = getAuthToken();
