@@ -7,6 +7,7 @@
   import Bbar from '$lib/components/panel/bbar.svelte';
   import ChecklistConstructorItem from './checklist-constructor-item.svelte';
   import SaveWindow from './save-window.svelte';
+  import {v4 as uuidv4} from 'uuid';
 
   // Инициализируем состояние чеклиста
   let {
@@ -17,7 +18,7 @@
   // Функция добавления новой строки
   function addItem() {
     checklistData.items.push({
-      id: crypto.randomUUID(),
+      id: uuidv4(),
       text: `Новая задача ${checklistData.items.length + 1}`,
       description: null,
       weight: 1,
