@@ -23,47 +23,42 @@
       {
         title: 'Чеклисты',
         url: '/checklist',
-        icon: BookCheckIcon,
-        // items: [
-        //   {
-        //     title: 'Checklist 1',
-        //     url: '/checklist/1'
-        //   },
-        //   {
-        //     title: 'Checklist 2',
-        //     url: '/checklist/2'
-        //   }
-        // ]
+        icon: BookCheckIcon
+      },
+      {
+        title: 'Отчет',
+        url: '/report',
+        icon: BookOpenIcon
       }
     ],
     navSecondary: [
-      {
-        title: 'Support',
-        url: '#',
-        icon: LifeBuoyIcon
-      },
-      {
-        title: 'Feedback',
-        url: '#',
-        icon: SendIcon
-      }
+      // {
+      //   title: 'Support',
+      //   url: '#',
+      //   icon: LifeBuoyIcon
+      // },
+      // {
+      //   title: 'Feedback',
+      //   url: '#',
+      //   icon: SendIcon
+      // }
     ],
     projects: [
-      {
-        name: 'Design Engineering',
-        url: '#',
-        icon: FrameIcon
-      },
-      {
-        name: 'Sales & Marketing',
-        url: '#',
-        icon: ChartPieIcon
-      },
-      {
-        name: 'Travel',
-        url: '#',
-        icon: MapIcon
-      }
+      // {
+      //   name: 'Design Engineering',
+      //   url: '#',
+      //   icon: FrameIcon
+      // },
+      // {
+      //   name: 'Sales & Marketing',
+      //   url: '#',
+      //   icon: ChartPieIcon
+      // },
+      // {
+      //   name: 'Travel',
+      //   url: '#',
+      //   icon: MapIcon
+      // }
     ]
   });
 </script>

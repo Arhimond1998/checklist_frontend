@@ -16,7 +16,7 @@
 
   let {
     item = $bindable(),
-    files = $bindable([]),
+    editable = false,
     index,
     removeItem,
     updateItem,
@@ -25,27 +25,18 @@
   let isDialogOpen = $state(false);
 
   let status = 0;
-  let indeterminate = $state(true);
-  let checked = $state(false);
-
-  item.checked = 2;
 
   let onCheckClick = function (event) {
     event.preventDefault();
     status = (status + 1) % 3;
 
     if (status === 1) {
-      checked = true;
       item.checked = 1;
-      indeterminate = false;
     }
     if (status === 2) {
-      checked = false;
       item.checked = 0;
-      indeterminate = false;
     }
     if (status === 0) {
-      indeterminate = true;
       item.checked = 2;
     }
   };
@@ -53,7 +44,15 @@
 
 <div class="checklist-item-total w-full">
   <div class="checklist-item w-full p-3">
-    <XMarkCheckbox bind:ref {indeterminate} onclick={onCheckClick} {checked} name={item.id} />
+    <XMarkCheckbox
+      bind:ref
+      disabled={!editable}
+      indeterminate={item.checked === 2}
+      onclick={onCheckClick}
+      checked={item.checked === 1}
+      name={item.id}
+    />
+    <!-- <XMarkCheckbox bind:ref {indeterminate} onclick={onCheckClick} {checked} name={item.id} /> -->
     {#if index !== null}
       <div class="mr-2">{index}.</div>
     {/if}
@@ -65,7 +64,7 @@
     </div>
   </div>
   <div>
-    <PhotoViewer {files} canDelete={false} isBlob={false} />
+    <PhotoViewer files={item.files} canDelete={false} isBlob={false} />
   </div>
 </div>
 
