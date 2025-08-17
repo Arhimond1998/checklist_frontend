@@ -30,3 +30,17 @@
     <Button onclick={() => goto('/checklist')} class="w-full">Перейти</Button>
   </Card.Footer>
 </Card.Root>
+
+
+<Card.Root class="w-full max-w-sm">
+  <Card.Header>
+    <Card.Title>Отчеты</Card.Title>
+
+  </Card.Header>
+  <Card.Content>
+    <div>Отчеты по чеклистам</div>
+  </Card.Content>
+  <Card.Footer class="flex-col gap-2">
+    <Button onclick={() => goto('/report')} class="w-full">Перейти</Button>
+  </Card.Footer>
+</Card.Root>
