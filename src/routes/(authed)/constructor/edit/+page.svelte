@@ -1,6 +1,8 @@
 <script>
   import ChecklistCard from '../../checklist/checklist-card.svelte';
   import { goto } from '$app/navigation';
+  import Button from '$lib/components/ui/button/button.svelte';
+
   let { data } = $props();
   let colsNum = $state(6);
   $inspect(colsNum);
@@ -28,13 +30,24 @@
 </script>
 
 <svelte:window on:resize={handleResize} />
-<div class="mt-8 grid gap-8 grid-cols-{colsNum} max-w-500">
-  {#each data.data as checklistItem (checklistItem.id_checklist)}
-    <ChecklistCard
-      title={checklistItem.title}
-      id_checklist={checklistItem.id_checklist}
-      onclick={onclick(checklistItem.id_checklist)}
-      text={'Редактировать'}
-    ></ChecklistCard>
-  {/each}
-</div>
+
+{#if data.data > 0}
+  <div class="mt-8 grid gap-8 grid-cols-{colsNum} max-w-500">
+    {#each data.data as checklistItem (checklistItem.id_checklist)}
+      <ChecklistCard
+        title={checklistItem.title}
+        id_checklist={checklistItem.id_checklist}
+        onclick={onclick(checklistItem.id_checklist)}
+        text={'Редактировать'}
+      ></ChecklistCard>
+    {/each}
+  </div>
+{:else}
+  <label for="return_btn">Редактировать нечего.</label>
+  <Button
+    id="return_btn"
+    onclick={() => {
+      goto('/constructor');
+    }}>Вернуться</Button
+  >
+{/if}

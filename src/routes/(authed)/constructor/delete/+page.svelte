@@ -9,6 +9,7 @@
     DialogTitle
   } from '$lib/components/ui/dialog';
   import Button from '$lib/components/ui/button/button.svelte';
+    import { goto } from '$app/navigation';
   let { data } = $props();
   let colsNum = $state(6);
   let items = $state(data.data);
@@ -55,6 +56,8 @@
 </script>
 
 <svelte:window on:resize={handleResize} />
+
+{#if items.length > 0}
 <div class="mt-8 grid gap-8 grid-cols-{colsNum} max-w-500">
   {#each items as checklistItem (checklistItem.id_checklist)}
     <ChecklistCard
@@ -65,7 +68,10 @@
     ></ChecklistCard>
   {/each}
 </div>
-
+{:else}
+<label for="return_btn">Удалять нечего.</label>
+<Button id="return_btn" onclick={() =>  {goto('/constructor')}}>Вернуться</Button>
+{/if}
 <Dialog bind:open={isDialogOpen}>
   <DialogContent>
     <DialogHeader>
