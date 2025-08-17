@@ -26,7 +26,7 @@
         icon: BookCheckIcon
       },
       {
-        title: 'Отчет',
+        title: 'Отчеты',
         url: '/report',
         icon: BookOpenIcon
       }
