@@ -28,13 +28,26 @@
 
     colsNum = cardsNum;
   }
+
+  function calculateColor(score, maxScore) {
+    let successPercent = score / maxScore;
+    if (successPercent < 0.5) {
+      return 'bg-red-100';
+    }
+    if (successPercent < 0.8) {
+      return 'bg-yellow-100';
+    }
+    return 'bg-green-100';
+  }
 </script>
 
 <svelte:window on:resize={handleResize} />
 {#if data.data.length > 0}
   <div class="mt-8 grid gap-8 grid-cols-{colsNum} max-w-500">
     {#each data.data as checklistItem (checklistItem.id_checklist_user_report)}
-      <Card.Root class="w-full max-w-sm">
+      <Card.Root
+        class="w-full max-w-sm {calculateColor(checklistItem.score, checklistItem.max_score)}"
+      >
         <Card.Header>
           <Card.Title>Чеклист: {checklistItem.title}</Card.Title>
         </Card.Header>
@@ -44,7 +57,9 @@
         </Card.Content>
         <Card.Footer class="flex-col gap-2">
           <div>{(checklistItem.score / checklistItem.max_score) * 100}%</div>
-          <Button onclick={onclick(checklistItem.id_checklist_user_report)} class="w-full">Посмотреть</Button>
+          <Button onclick={onclick(checklistItem.id_checklist_user_report)} class="w-full"
+            >Посмотреть</Button
+          >
         </Card.Footer>
       </Card.Root>
     {/each}

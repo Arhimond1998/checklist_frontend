@@ -13,7 +13,6 @@
     updateItem
   } = $props();
 
-  $inspect(item, 'item constructor');
   let isOpenDesc = $state(false);
   let isOpenWeightWin = $state(false);
 
