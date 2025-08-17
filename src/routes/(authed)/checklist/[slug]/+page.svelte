@@ -3,9 +3,12 @@
 
   let { data } = $props();
   let editable = $state(true);
-  for (let rec of data.data) {
-    rec.checked = 2;
+  for (let group of data.data) {
+    for (let rec of group.items) {
+      rec.checked = 2;
+    }
   }
+  console.log({ data });
 </script>
 
 <Checklist {data} {editable}></Checklist>

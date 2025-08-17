@@ -16,13 +16,43 @@
   const { data, editable } = $props();
   let id_checklist = data.id_checklist;
   let items = $state(data.data);
-  let total = $derived(items.length);
+  //   let total = $derived(items.reduce((prev, cur) => prev + cur.items.length, 0));
+  let total = $derived.by(() => {
+    let total_ = 0;
+    for (const group of items) {
+      total_ += group.items.length;
+    }
+    return total_;
+  });
   let isDialogOpen = $state(false);
-  let filled = $derived(items.filter((rec) => rec.checked !== 2).length);
-  let maxScore = $derived(
-    items.reduce((prev, cur) => prev + (cur.checked !== 2 ? cur.weight : 0), 0)
-  );
-  let score = $derived(items.reduce((prev, cur) => prev + (cur.checked === 1 ? cur.weight : 0), 0));
+  let filled = $derived.by(() => {
+    let filled_ = 0;
+    for (const group of items) {
+      filled_ += group.items.filter((rec) => rec.checked !== 2).length;
+    }
+    return filled_;
+  });
+  let maxScore = $derived.by(() => {
+    let maxScore_ = 0;
+    for (const group of items) {
+      maxScore_ += group.items.reduce(
+        (prev, cur) => prev + (cur.checked !== 2 ? cur.weight : 0),
+        0
+      );
+    }
+    return maxScore_;
+  });
+  let score = $derived.by(() => {
+    let score_ = 0;
+    for (const group of items) {
+      score_ += group.items.reduce(
+        (prev, cur) => prev + (cur.checked === 1 ? cur.weight : 0),
+        0
+      );
+    }
+    return score_;
+  });
+
   function onSave() {
     isDialogOpen = true;
   }
@@ -48,7 +78,9 @@
 
 <Panel>
   {#snippet tbar()}
-    <Progress max={maxScore} value={score} />
+    <div class="p-3">
+      <Progress max={maxScore} value={score} />
+    </div>
   {/snippet}
   {#snippet bbar()}
     {#if editable}
@@ -61,13 +93,20 @@
       {filled}/{total}
     </div>
     <div>
-      maxScore={maxScore}, value={score}
+      value={score} maxScore={maxScore}
     </div>
   {/snippet}
 
   <div class="checklist-container w-full">
-    {#each items as item, i (item.id)}
-      <ChecklistItem bind:item={items[i]} index={i} {editable} />
+    {#each items as group, groupId (group.id)}
+      <div class="border-b-2">
+        <h1><strong class="p-3 text-2xl">{group.text}</strong></h1>
+        <div class="ml-3">
+          {#each group.items as item, i (item.id)}
+            <ChecklistItem bind:item={group.items[i]} index={i} {editable} />
+          {/each}
+        </div>
+      </div>
     {/each}
   </div>
 </Panel>

@@ -42,7 +42,7 @@
   };
 </script>
 
-<div class="checklist-item-total w-full">
+<div class="w-full">
   <div class="checklist-item w-full p-3">
     <XMarkCheckbox
       bind:ref
@@ -87,11 +87,7 @@
     display: flex;
     align-items: center;
     margin-bottom: 10px;
-    border-bottom: 1px solid #eee;
+    /* border-bottom: 1px solid #eee; */
     gap: 10px;
-  }
-
-  .checklist-item-total {
-    border: 1px solid #0808082a;
   }
 </style>
