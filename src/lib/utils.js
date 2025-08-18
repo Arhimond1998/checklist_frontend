@@ -30,6 +30,11 @@ export function setUserData(data) {
   return localStorage.setItem(USER_DATA_NAME, JSON.stringify(data));
 }
 
+export function getUserRoles() {
+  return getUserData().roles;
+}
+
+
 export function getAuthHeaders() {
   const token = getAuthToken();
   if (!token) return {};
