@@ -90,10 +90,7 @@
     {/if}
 
     <div>
-      {filled}/{total}
-    </div>
-    <div>
-      value={score} maxScore={maxScore}
+      {(Math.floor((score / Math.max(maxScore, 1)) * 100 * 100) / 100) }%
     </div>
   {/snippet}
 
@@ -103,7 +100,7 @@
         <h1><strong class="p-3 text-2xl">{group.text}</strong></h1>
         <div class="ml-3">
           {#each group.items as item, i (item.id)}
-            <ChecklistItem bind:item={group.items[i]} index={i} {editable} />
+            <ChecklistItem bind:item={group.items[i]} index={i + 1} {editable} />
           {/each}
         </div>
       </div>

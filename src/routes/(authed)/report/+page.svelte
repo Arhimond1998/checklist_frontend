@@ -56,7 +56,7 @@
           <div>Время заполнения: {checklistItem.dt}</div>
         </Card.Content>
         <Card.Footer class="flex-col gap-2">
-          <div>{(Math.floor((checklistItem.score / checklistItem.max_score) * 100 * 100) / 100) }%</div>
+          <div>{(Math.floor((checklistItem.score / Math.max(checklistItem.max_score, 1)) * 100 * 100) / 100) }%</div>
           <Button onclick={onclick(checklistItem.id_checklist_user_report)} class="w-full"
             >Посмотреть</Button
           >

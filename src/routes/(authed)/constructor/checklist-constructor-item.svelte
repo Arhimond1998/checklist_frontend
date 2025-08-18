@@ -7,6 +7,7 @@
   import Trash_2 from '@lucide/svelte/icons/trash-2';
   import DropdownMenu from './dropdown-menu.svelte';
   import SelectWeight from './select-weight.svelte';
+  import ConfirmDialog from '$lib/components/ConfirmDialog.svelte';
   let {
     item = $bindable({ weight: 1, files: [], text: '', id: null, description: '' }),
     removeItem,
@@ -14,6 +15,7 @@
   } = $props();
 
   let isOpenDesc = $state(false);
+  let isDeleteOpen = $state(false);
   let isOpenWeightWin = $state(false);
 
   $effect(() => {
@@ -27,7 +29,7 @@
 
 <div class="checklist-item-total w-full">
   <div class="checklist-item w-full p-3">
-    <Button class="remove-btn" onclick={() => removeItem(item.id)} title="Удалить задачу"
+    <Button class="remove-btn" onclick={() => (isDeleteOpen = true)} title="Удалить задачу"
       ><Trash_2 /></Button
     >
     <input
@@ -38,7 +40,7 @@
       class="w-full"
     />
     <AttachButton bind:files={item.files} />
-    <DropdownMenu bind:isOpenDesc bind:isOpenWeightWin description={item.description}/>
+    <DropdownMenu bind:isOpenDesc bind:isOpenWeightWin description={item.description} />
   </div>
   <div>
     <PhotoViewer bind:files={item.files} canDelete={true} />
@@ -55,6 +57,13 @@
     </div>
   {/if}
 </div>
+<ConfirmDialog
+  delay={1}
+  text="Удалить задачу?"
+  btnVariant="destructive"
+  bind:isDialogOpen={isDeleteOpen}
+  onConfirm={() => removeItem(item.id)}
+></ConfirmDialog>
 
 <style>
   .checklist-item {
