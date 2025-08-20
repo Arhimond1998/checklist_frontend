@@ -28,9 +28,7 @@
       {#each breadcrumbs as text, i}
         {@render breadcrumb({ href: text, text: text })}
       {/each}
-      <!-- <h1 class="text-center font-serif text-4xl font-bold text-gray-800">
-        
-      </h1> -->
+
     </header>
 
     {@render children()}

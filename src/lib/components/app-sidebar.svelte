@@ -18,16 +18,19 @@
         title: 'Конструктор чеклистов',
         url: '/constructor',
         icon: BrickWallIcon,
+        roles: ['admin'],
         isActive: true
       },
       {
         title: 'Чеклисты',
         url: '/checklist',
+        roles: ['admin', 'report_user'],
         icon: BookCheckIcon
       },
       {
         title: 'Отчеты',
         url: '/report',
+        roles: ['admin', 'report_user'],
         icon: BookOpenIcon
       }
     ],
