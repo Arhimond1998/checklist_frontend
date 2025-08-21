@@ -35,10 +35,11 @@
 
 {#await isAuthorized()}
   <h1 class="flex min-h-screen items-center justify-center">Проверяем данные...</h1>
-{:then { isAuth }}
+{:then isAuth}
   {#if isAuth}
-    <h1 class="flex min-h-screen items-center justify-center">Вы успешно залогинились!</h1>
-    <div><a href="/">Вернуться в главное меню.</a></div>
+    <h1 class="flex min-h-screen items-center justify-center">
+      Вы успешно залогинились! <Button onclick={() => goto('/')}>Вернуться в главное меню.</Button>
+    </h1>
   {:else}
     <div class="flex min-h-screen items-center justify-center">
       <Card.Root class="w-full max-w-sm">

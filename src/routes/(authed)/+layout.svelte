@@ -7,12 +7,19 @@
   import { setContext } from 'svelte';
 
   let { children } = $props();
-  let breadcrumbs = $derived($page.url.pathname.split('/').filter(Boolean));
+  let breadcrumbs = $derived.by(() => {
+    let result = [''];
+    for (let rec of $page.url.pathname.split('/').filter(Boolean)) {
+      result.push(result[result.length - 1] + '/' + rec);
+    }
+    result[0] = '/';
+    return result;
+  });
 </script>
 
 {#snippet breadcrumb({ href, text })}
-  <span>/ {text}</span>
-  <!-- <a {href}>{text}</a> -->
+  <!-- <span>/ {text}</span> -->
+  <a {href}>/ {text == '/' ? 'home' : text.split('/').at(-1)}</a>
 {/snippet}
 
 <Sidebar.Provider class="h-screen w-screen">
@@ -23,12 +30,11 @@
         <Sidebar.Trigger class="-ml-1" />
       </div>
       <Separator orientation="vertical" />
-      {@render breadcrumb({ href: '/', text: 'home' })}
-
       {#each breadcrumbs as text, i}
-        {@render breadcrumb({ href: text, text: text })}
+        {#if breadcrumbs.length - i <= 3}
+          {@render breadcrumb({ href: text, text: text })}
+        {/if}
       {/each}
-
     </header>
 
     {@render children()}

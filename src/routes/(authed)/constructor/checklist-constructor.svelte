@@ -107,7 +107,7 @@
     {#each checklistData.items as group, groupIndex (group.id)}
       <div class="p-3 outline-3">
         <div class="flex items-center gap-2.5">
-          <Button class="remove-btn" onclick={removeGroup(group.id)} title="Удалить задачу"
+          <Button class="remove-btn" onclick={removeGroup(group.id)} title="Удалить группу"
             ><Trash_2 /></Button
           >
 

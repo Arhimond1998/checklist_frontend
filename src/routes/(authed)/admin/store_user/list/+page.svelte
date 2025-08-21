@@ -1,0 +1,28 @@
+<script>
+  import { goto } from '$app/navigation';
+  import Button from '$lib/components/ui/button/button.svelte';
+  import * as Card from '$lib/components/ui/card/index.js';
+  import StoreUserCard from '../store-user-card.svelte';
+
+  let { data } = $props();
+  let colsNum = $state(6);
+
+  $inspect(data, 'data');
+</script>
+
+<svelte:window on:resize={handleResize} />
+{#if data.data.length > 0}
+  <div class="mt-8 grid gap-8 grid-cols-{colsNum} max-w-500">
+    {#each data.data as userItem (userItem.id_store_user)}
+      <StoreUserCard item={userItem}></StoreUserCard>
+    {/each}
+  </div>
+{:else}
+  <label for="return_btn">Пользователей нет.</label>
+  <Button
+    id="return_btn"
+    onclick={() => {
+      goto('/admin/user');
+    }}>Назад</Button
+  >
+{/if}

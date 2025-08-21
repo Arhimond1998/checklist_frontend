@@ -24,12 +24,14 @@
   // Состояние компонента
   let countdown = 0;
   let timerId = null;
-  let btnDisabled = $state(true);
+  let btnDisabled = $state(false);
 
   // Запуск отсчета
   function startCountdown() {
-    if (delay === 0) return;
-
+    if (delay === 0) {
+      btnDisabled = false;
+      return;
+    }
     resetCountdown();
     countdown = delay;
 

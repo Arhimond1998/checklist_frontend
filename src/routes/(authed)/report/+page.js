@@ -13,7 +13,7 @@ export async function load({ url }) {
   }
 
   try {
-    let resp = await bffGet('api/checklist_user_report/titles');
+    let resp = await bffGet('api/checklist_user_reports/titles');
     console.log({ resp });
     for (const rec of resp.data) {
       rec.dt = formatDateTime(rec.dt);

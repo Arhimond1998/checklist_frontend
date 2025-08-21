@@ -68,7 +68,7 @@
     };
     console.log({ saveData });
     try {
-      const resp = await bffPost('api/checklist_user_report', saveData);
+      const resp = await bffPost('api/checklist_user_reports', saveData);
       goto('/checklist');
     } catch (error) {
       alert(error);

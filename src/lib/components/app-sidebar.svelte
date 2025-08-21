@@ -9,11 +9,19 @@
   import Settings2Icon from '@lucide/svelte/icons/settings-2';
   import BrickWallIcon from '@lucide/svelte/icons/brick-wall';
   import BookCheckIcon from '@lucide/svelte/icons/book-check';
+  import UserLockIcon from '@lucide/svelte/icons/user-lock';
 
   let userData = $state({});
   const data = $derived({
     user: userData,
     navMain: [
+      {
+        title: 'Панель админа',
+        url: '/admin',
+        icon: UserLockIcon,
+        roles: ['admin'],
+        isActive: true
+      },
       {
         title: 'Конструктор чеклистов',
         url: '/constructor',
