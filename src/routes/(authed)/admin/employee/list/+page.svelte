@@ -11,7 +11,6 @@
 
 </script>
 
-<svelte:window on:resize={handleResize} />
 {#if data.data.length > 0}
   <div class="mt-8 grid gap-8 grid-cols-{colsNum} max-w-500">
     {#each data.data as employeeItem (employeeItem.id_employee)}

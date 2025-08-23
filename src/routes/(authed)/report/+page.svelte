@@ -14,20 +14,6 @@
     };
   }
 
-  function handleResize(event) {
-    const windowWidth = event.target.innerWidth;
-
-    let cardsNum = Math.floor(Math.min(Math.max(windowWidth / 300, 1), 6));
-    if (cardsNum !== 1 && cardsNum !== 6) {
-      if (cardsNum > 3) {
-        cardsNum = 3;
-      } else {
-        cardsNum = 1;
-      }
-    }
-
-    colsNum = cardsNum;
-  }
 
   function calculateColor(score, maxScore) {
     let successPercent = score / maxScore;
@@ -41,7 +27,6 @@
   }
 </script>
 
-<svelte:window on:resize={handleResize} />
 {#if data.data.length > 0}
   <div class="mt-8 grid gap-8 grid-cols-{colsNum} max-w-500">
     {#each data.data as checklistItem (checklistItem.id_checklist_user_report)}
