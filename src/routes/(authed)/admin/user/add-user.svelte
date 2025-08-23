@@ -6,6 +6,8 @@
   import { bffPost, bffPut } from '$lib/utils';
   import { goto } from '$app/navigation';
   import Page from '../+page.svelte';
+  import UserTree from '$lib/components/UserTree.svelte';
+
   let {
     item = $bindable({
       id_user: null,
@@ -14,9 +16,15 @@
       patronymic: '',
       mail: '',
       login: '',
-      password: ''
+      password: '',
+      id_parent: null
     })
   } = $props();
+
+  if (item.id_parent) {
+    item.id_parent = [item.id_parent];
+  }
+
   let isLoading = $state(false);
   async function onclick() {
     isLoading = true;
@@ -26,7 +34,8 @@
         name: item.name,
         surname: item.surname,
         patronymic: item.patronymic,
-        mail: item.mail
+        mail: item.mail,
+        id_parent: item.id_parent
       };
       if (item.id_user) {
         resp = await bffPut(`api/users/${item.id_user}`, postData);
@@ -59,12 +68,7 @@
 
   <div class="space-y-2">
     <Label for="secondName" class="block text-sm font-medium">Фамилия</Label>
-    <Input
-      bind:value={item.surname}
-      id="secondName"
-      class="w-full"
-      placeholder="Введите фамилию"
-    />
+    <Input bind:value={item.surname} id="secondName" class="w-full" placeholder="Введите фамилию" />
   </div>
 
   <div class="space-y-2">
@@ -109,6 +113,10 @@
       placeholder="****"
       disabled={item.id_user !== null}
     />
+  </div>
+
+  <div class="space-y-2">
+    <UserTree mode={'single'} bind:value={item.id_parent} title={'Прямой руководитель:'}></UserTree>
   </div>
 
   <Button
