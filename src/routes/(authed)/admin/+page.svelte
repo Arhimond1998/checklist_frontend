@@ -17,6 +17,16 @@
       url: 'role'
     },
     {
+      title: 'Компоненты',
+      description: 'Создание компонент',
+      url: 'component'
+    },
+    {
+      title: 'Роль - Компонента',
+      description: 'Привязка роли к компоненте для доступа к функционалу',
+      url: 'role_component'
+    },
+    {
       title: 'Магазины',
       description: 'Создание и редактирование магазинов',
       url: 'store'
@@ -40,7 +50,8 @@
       title: 'Магазин-Чеклист',
       description: 'Создание и редактирование привязок',
       url: 'store_checklist'
-    }
+    },
+    
   ];
 </script>
 

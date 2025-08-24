@@ -3,6 +3,6 @@
   let { children } = $props();
 </script>
 
-<RoleGuard requiredRoles={['admin']}>
+<RoleGuard requiredComponents={['constructor']}>
   {@render children()}
 </RoleGuard>

@@ -2,7 +2,7 @@
   import { goto } from '$app/navigation';
   import Button from '$lib/components/ui/button/button.svelte';
   import * as Card from '$lib/components/ui/card/index.js';
-  import StoreChecklistCard from '../store-checklist-card.svelte';
+  import RoleComponentCard from '../role-component-card.svelte';
 
   let { data } = $props();
   let colsNum = $state(6);
@@ -12,8 +12,8 @@
 
 {#if data.data.length > 0}
   <div class="mt-8 grid gap-8 grid-cols-{colsNum} max-w-500">
-    {#each data.data as storeChecklistItem (storeChecklistItem.id_store_checklist)}
-      <StoreChecklistCard item={storeChecklistItem}></StoreChecklistCard>
+    {#each data.data as roleComponentItem (roleComponentItem.id_role_component)}
+      <RoleComponentCard item={roleComponentItem}></RoleComponentCard>
     {/each}
   </div>
 {:else}

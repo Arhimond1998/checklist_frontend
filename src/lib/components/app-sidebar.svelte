@@ -20,25 +20,29 @@
         url: '/admin',
         icon: UserLockIcon,
         roles: ['admin'],
+        components: [],
         isActive: true
       },
       {
         title: 'Конструктор чеклистов',
         url: '/constructor',
         icon: BrickWallIcon,
-        roles: ['admin'],
+        roles: [],
+        components: ['constructor'],
         isActive: true
       },
       {
         title: 'Чеклисты',
         url: '/checklist',
-        roles: ['admin', 'report_user'],
+        roles: [],
+        components: ['checklist'],
         icon: BookCheckIcon
       },
       {
         title: 'Отчеты',
         url: '/report',
-        roles: ['admin', 'report_user'],
+        roles: [],
+        components: ['report'],
         icon: BookOpenIcon
       }
     ],

@@ -4,11 +4,11 @@
   import { bffPost } from '$lib/utils';
   let items = $state([]);
   let treeValues = $state([]);
-  let { value = $bindable(), mode = 'all', title = 'Пользователи' } = $props();
+  let { value = $bindable(), mode = 'all', title = 'Роли' } = $props();
   let isLoading = $state(true);
   onMount(async () => {
     try {
-      const resp = await bffPost('api/users/tree_combobox');
+      const resp = await bffPost('api/roles/tree_combobox');
       if (resp) {
         items = resp.data;
       }
@@ -25,16 +25,18 @@
     }
     treeValues = value;
   }
-  $inspect(value, 'user tree value');
-  $inspect(treeValues, 'user tree values');
   $effect(() => {
     if ((mode = 'single')) {
-      value = treeValues[0];
+      if (treeValues?.length) {
+        value = treeValues[0];
+      } else {
+        value = null;
+      }
     } else {
       value = treeValues;
     }
   });
-  console.log('User Tree init');
+  $inspect(value, 'role tree value');
 </script>
 
 {#if isLoading}

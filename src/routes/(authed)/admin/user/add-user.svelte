@@ -6,7 +6,7 @@
   import { bffPost, bffPut } from '$lib/utils';
   import { goto } from '$app/navigation';
   import Page from '../+page.svelte';
-  import UserTree from '$lib/components/UserTree.svelte';
+  import UserTree from '$lib/components/RoleTree.svelte';
 
   let {
     item = $bindable({
@@ -17,13 +17,8 @@
       mail: '',
       login: '',
       password: '',
-      id_parent: null
     })
   } = $props();
-
-  if (item.id_parent) {
-    item.id_parent = [item.id_parent];
-  }
 
   let isLoading = $state(false);
   async function onclick() {
@@ -35,7 +30,6 @@
         surname: item.surname,
         patronymic: item.patronymic,
         mail: item.mail,
-        id_parent: item.id_parent
       };
       if (item.id_user) {
         resp = await bffPut(`api/users/${item.id_user}`, postData);
@@ -113,10 +107,6 @@
       placeholder="****"
       disabled={item.id_user !== null}
     />
-  </div>
-
-  <div class="space-y-2">
-    <UserTree mode={'single'} bind:value={item.id_parent} title={'Прямой руководитель:'}></UserTree>
   </div>
 
   <Button

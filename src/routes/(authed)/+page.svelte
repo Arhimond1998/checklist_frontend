@@ -9,31 +9,35 @@
       title: 'Панель админа',
       description: 'Управление всем и всеми',
       url: 'admin',
-      roles: ['admin']
+      roles: ['admin'],
+      components: [],
     },
     {
       title: 'Конструктор',
       description: 'Создание, редактирование, удаление чеклистов',
       url: 'constructor',
-      roles: ['admin']
+      roles: [],
+      components: ['constructor'],
     },
     {
       title: 'Чеклисты',
       description: 'Заполнение чеклистов',
       url: 'checklist',
-      roles: []
+      roles: [],
+      components: ['checklist'],
     },
     {
       title: 'Отчеты',
       description: 'Отчеты по чеклистам',
       url: 'report',
-      roles: []
+      roles: [],
+      components: ['report'],
     }
   ];
 </script>
 
 {#each items as item}
-  <RoleGuard requiredRoles={item.roles}>
+  <RoleGuard requiredRoles={item.roles} requiredComponents={item.components}>
     <Card.Root rd.Root class="w-full max-w-sm">
       <Card.Header>
         <Card.Title>{item.title}</Card.Title>

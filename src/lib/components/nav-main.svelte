@@ -14,6 +14,7 @@
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       icon: any;
       roles: string[],
+      components: string[],
       isActive?: boolean;
       items?: {
         title: string;
@@ -27,7 +28,7 @@
   <Sidebar.GroupLabel>Меню</Sidebar.GroupLabel>
   <Sidebar.Menu>
     {#each items as mainItem (mainItem.title)}
-      <RoleGuard requiredRoles={mainItem.roles}>
+      <RoleGuard requiredRoles={mainItem.roles} requiredComponents={mainItem.components}>
         <Collapsible.Root open={mainItem.isActive}>
           {#snippet child({ props })}
             <Sidebar.MenuItem {...props}>

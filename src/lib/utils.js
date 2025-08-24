@@ -29,6 +29,9 @@ export function getUserData() {
 export function setUserData(data) {
   return localStorage.setItem(USER_DATA_NAME, JSON.stringify(data));
 }
+export function getUserComponents() {
+  return getUserData().components;
+}
 
 export function getUserRoles() {
   return getUserData().roles;

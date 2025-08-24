@@ -1,12 +1,20 @@
 <script>
-  import { getUserRoles } from '$lib/utils';
+  import { getUserRoles, getUserComponents } from '$lib/utils';
 
   const roles = getUserRoles();
-  let { requiredRoles = [], children, noAccessChildren } = $props();
+  const components = getUserComponents() || [];
+  let { requiredRoles = [], children, noAccessChildren, requiredComponents = [] } = $props();
+
+  let allowedByRoles =
+    !requiredRoles.length ||
+    (!!requiredRoles?.length && roles.some((r) => requiredRoles.includes(r)));
+  let allowedByComponents =
+    !requiredComponents.length ||
+    (!!requiredComponents?.length && components.some((r) => requiredComponents.includes(r)));
 </script>
 
-{#if requiredRoles.length > 0 && !roles.some((r) => requiredRoles.includes(r))}
-  {@render noAccessChildren?.()}
-{:else}
+{#if allowedByRoles && allowedByComponents}
   {@render children?.()}
+{:else}
+  {@render noAccessChildren?.()}
 {/if}

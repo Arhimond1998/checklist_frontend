@@ -6,14 +6,12 @@
   import { bffPost, bffPut } from '$lib/utils';
   import { goto } from '$app/navigation';
   import Page from '../+page.svelte';
-  import RoleTree from '$lib/components/RoleTree.svelte';
 
   let {
     item = $bindable({
-      id_role: null,
+      id_component: null,
       name: '',
       code: '',
-      id_parent: null
     })
   } = $props();
   let isLoading = $state(false);
@@ -24,14 +22,13 @@
       const postData = {
         name: item.name,
         code: item.code,
-        id_parent: item.id_parent
       };
-      if (item.id_role) {
-        resp = await bffPut(`api/roles/${item.id_role}`, postData);
+      if (item.id_component) {
+        resp = await bffPut(`api/components/${item.id_component}`, postData);
       } else {
-        resp = await bffPost('api/roles', postData);
+        resp = await bffPost('api/components', postData);
       }
-      goto('/admin/role/list');
+      goto('/admin/component/list');
     } catch (error) {
       console.log({ error });
       alert(error.msg);
@@ -60,12 +57,8 @@
       id="middleName"
       class="w-full"
       placeholder="Введите код"
-      disabled={item.id_role !== null}
+      disabled={item.id_component !== null}
     />
-  </div>
-
-  <div class="space-y-2">
-    <RoleTree mode={'single'} bind:value={item.id_parent} title={'Прямой руководитель:'}></RoleTree>
   </div>
 
   <Button
