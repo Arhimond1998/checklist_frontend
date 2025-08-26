@@ -2,9 +2,8 @@
   import { goto } from '$app/navigation';
   import Button from '$lib/components/ui/button/button.svelte';
   import * as Card from '$lib/components/ui/card/index.js';
-  import { bffPost } from '$lib/utils.js';
+  import { bffPost, formatDateTime } from '$lib/utils.js';
   import Filters from './filters.svelte';
-
   let { data } = $props();
   let colsNum = $state(6);
 
@@ -27,6 +26,9 @@
     };
     try {
       const resp = await bffPost('api/checklist_user_reports/titles', postData);
+      for (const rec of resp.data) {
+        rec.dt = formatDateTime(rec.dt);
+      }
       items = resp.data;
     } catch (error) {
       alert(error);
@@ -46,7 +48,7 @@
   }
 </script>
 
-<Filters bind:isDialogOpen={isDialogOpen} bind:filters={filters}></Filters>
+<Filters bind:isDialogOpen bind:filters></Filters>
 <Button onclick={() => (isDialogOpen = true)}>Фильтры</Button>
 <Button onclick={onFindClick}>Найти</Button>
 {#if items.length > 0}
