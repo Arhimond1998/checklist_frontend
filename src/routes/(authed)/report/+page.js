@@ -1,4 +1,4 @@
-import { bffGet } from '$lib/utils';
+import { bffPost } from '$lib/utils';
 
 export async function load({ url }) {
   function formatDateTime(dtString) {
@@ -13,7 +13,7 @@ export async function load({ url }) {
   }
 
   try {
-    let resp = await bffGet('api/checklist_user_reports/titles');
+    let resp = await bffPost('api/checklist_user_reports/titles', { filters: [] });
     console.log({ resp });
     for (const rec of resp.data) {
       rec.dt = formatDateTime(rec.dt);
