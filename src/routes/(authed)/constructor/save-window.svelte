@@ -1,5 +1,6 @@
 <script>
   import { goto } from '$app/navigation';
+    import StoreCombobox from '$lib/components/combobox/StoreCombobox.svelte';
   import Button from '$lib/components/ui/button/button.svelte';
 
   import {
@@ -12,9 +13,14 @@
   import { bffPut, bffPost } from '$lib/utils';
 
   let { saveData = $bindable(), isDialogOpen = $bindable(false) } = $props();
+  let storeValues = $state([])
   let saveClick = async function () {
+    if (!storeValues?.length) {
+      alert('Привяжите магазины');
+      return;
+    }
     const data = $state.snapshot(saveData);
-    const postData = { title: data.title, data: { ...data.items } };
+    const postData = { title: data.title, id_store: storeValues, data: { ...data.items } };
     console.log({ postData });
     if (!checklist_name) {
       return;
@@ -35,6 +41,7 @@
   let closeDialog = function () {
     isDialogOpen = false;
   };
+  
 </script>
 
 <Dialog bind:open={isDialogOpen}>
@@ -50,6 +57,8 @@
       placeholder="Имя чеклиста"
       bind:value={saveData.title}
     />
+
+    <StoreCombobox bind:values={storeValues}></StoreCombobox>
 
     <DialogFooter>
       <Button variant="outline" onclick={closeDialog}>Закрыть</Button>

@@ -6,8 +6,8 @@
   import { bffPost, bffPut } from '$lib/utils';
   import { goto } from '$app/navigation';
   import Page from '../+page.svelte';
-  import RoleCombobox from '$lib/components/RoleCombobox.svelte';
-  import ComponentCombobox from '$lib/components/ComponentCombobox.svelte';
+  import RoleCombobox from '$lib/components/combobox/RoleCombobox.svelte';
+  import ComponentCombobox from '$lib/components/combobox/ComponentCombobox.svelte';
 
   let isLoading = $state(false);
 

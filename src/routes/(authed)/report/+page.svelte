@@ -14,16 +14,15 @@
     };
   }
 
-
   function calculateColor(score, maxScore) {
     let successPercent = score / maxScore;
-    if (successPercent < 0.5) {
-      return 'bg-red-100';
+    if (successPercent >= 0.8) {
+      return 'bg-green-100';
     }
-    if (successPercent < 0.8) {
+    if (successPercent >= 0.5) {
       return 'bg-yellow-100';
     }
-    return 'bg-green-100';
+    return 'bg-red-100';
   }
 </script>
 
@@ -39,9 +38,14 @@
         <Card.Content>
           <div>ФИО: {checklistItem.user_fullname}</div>
           <div>Время заполнения: {checklistItem.dt}</div>
+          <div>Магазин: {checklistItem.name_store} ({checklistItem.code_store})</div>
+          <div>Работник: {checklistItem.employee_fullname}</div>
         </Card.Content>
         <Card.Footer class="flex-col gap-2">
-          <div>{(Math.floor((checklistItem.score / Math.max(checklistItem.max_score, 1)) * 100 * 100) / 100) }%</div>
+          <div>
+            {Math.floor((checklistItem.score / Math.max(checklistItem.max_score, 1)) * 100 * 100) /
+              100}%
+          </div>
           <Button onclick={onclick(checklistItem.id_checklist_user_report)} class="w-full"
             >Посмотреть</Button
           >

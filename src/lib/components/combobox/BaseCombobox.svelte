@@ -14,7 +14,8 @@
     isSingle = true,
     values = $bindable([]),
     url,
-    label = $bindable('')
+    label = $bindable(''),
+    filters = $bindable([])
   } = $props();
 
   let open = $state(false);
@@ -23,8 +24,12 @@
   onMount(async () => {
     if (!url || url === '') return;
     console.log('start request')
+    const postData = {};
+    if (filters) {
+      postData.filters = filters;
+    }
     try {
-      const resp = await bffPost(url);
+      const resp = await bffPost(url, postData);
       console.log({resp})
       if (resp) {
         items = resp.data;

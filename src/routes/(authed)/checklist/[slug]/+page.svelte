@@ -2,6 +2,7 @@
   import Checklist from './checklist.svelte';
 
   let { data } = $props();
+  $inspect(data)
   let editable = $state(true);
   for (let group of data.data) {
     for (let rec of group.items) {

@@ -5,6 +5,8 @@
   import Progress from '$lib/components/ui/progress/progress.svelte';
   import { bffPost } from '$lib/utils';
   import ChecklistItem from './checklist-item.svelte';
+
+  import EmployeeCombobox from '$lib/components/combobox/EmployeeCombobox.svelte';
   import {
     Dialog,
     DialogContent,
@@ -16,6 +18,7 @@
   const { data, editable } = $props();
   let id_checklist = data.id_checklist;
   let items = $state(data.data);
+  let id_employee = $state([]);
   //   let total = $derived(items.reduce((prev, cur) => prev + cur.items.length, 0));
   let total = $derived.by(() => {
     let total_ = 0;
@@ -45,10 +48,7 @@
   let score = $derived.by(() => {
     let score_ = 0;
     for (const group of items) {
-      score_ += group.items.reduce(
-        (prev, cur) => prev + (cur.checked === 1 ? cur.weight : 0),
-        0
-      );
+      score_ += group.items.reduce((prev, cur) => prev + (cur.checked === 1 ? cur.weight : 0), 0);
     }
     return score_;
   });
@@ -60,11 +60,16 @@
     isDialogOpen = false;
   }
   async function saveReport() {
+    if (id_employee?.length !== 1) {
+      alert('Выберите 1 работника');
+      return;
+    }
     const saveData = {
       id_checklist: id_checklist,
       data: { data: $state.snapshot(items) },
       max_score: $state.snapshot(maxScore),
-      score: $state.snapshot(score)
+      score: $state.snapshot(score),
+      id_employee: id_employee[0]
     };
     console.log({ saveData });
     try {
@@ -85,12 +90,16 @@
   {#snippet bbar()}
     {#if editable}
       <Bbar collapsible={false} defaultSize={15}>
-        <Button onclick={onSave} class="justify center mb-2 h-full self-center">Сохранить</Button>
+        {#if !!data.id_store.length}
+          <Button onclick={onSave} class="justify center mb-2 h-full self-center">Сохранить</Button>
+        {:else}
+          <div>Нельзя сохранить, чеклист не привязан к магазину</div>
+        {/if}
       </Bbar>
     {/if}
 
     <div>
-      {(Math.floor((score / Math.max(maxScore, 1)) * 100 * 100) / 100) }%
+      {Math.floor((score / Math.max(maxScore, 1)) * 100 * 100) / 100}%
     </div>
   {/snippet}
 
@@ -109,10 +118,15 @@
 </Panel>
 
 <Dialog bind:open={isDialogOpen}>
-  <DialogContent>
+  <DialogContent class="w-full overflow-hidden">
     <DialogHeader>
       <DialogTitle>Подтверждение сохранения</DialogTitle>
     </DialogHeader>
+    <EmployeeCombobox
+      isSingle={true}
+      bind:values={id_employee}
+      filters={[{ property: 'id_store', value: data.id_store, operator: 'in' }]}
+    ></EmployeeCombobox>
     <Button variant="default" onclick={saveReport}>Сохранить</Button>
     <Button variant="outline" onclick={closeDialog}>Закрыть</Button>
   </DialogContent>
