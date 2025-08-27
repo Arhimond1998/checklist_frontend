@@ -15,7 +15,9 @@
     values = $bindable([]),
     url,
     label = $bindable(''),
-    filters = $bindable([])
+    filters = $bindable([]),
+    labelWidth = $bindable('w-25'),
+    width = $bindable('w-30')
   } = $props();
 
   let open = $state(false);
@@ -23,14 +25,14 @@
 
   onMount(async () => {
     if (!url || url === '') return;
-    console.log('start request')
+    console.log('start request');
     const postData = {};
     if (filters) {
       postData.filters = filters;
     }
     try {
       const resp = await bffPost(url, postData);
-      console.log({resp})
+      console.log({ resp });
       if (resp) {
         items = resp.data;
       }
@@ -41,7 +43,7 @@
   });
 
   const selectedValue = $derived.by(() => {
-    if (values.length > 1) return `Выбрано ${values.length} опции(й)`;
+    if (values.length > 1) return `${values.length} опции(й)`;
     if (values.length == 1) return items.find((f) => f.value === values[0])?.label;
   });
 
@@ -73,17 +75,17 @@
 <Popover.Root bind:open>
   <Popover.Trigger bind:ref={triggerRef}>
     {#snippet child({ props })}
-      <div class="flex w-full">
-        <Label for="combobox" class="mr-2">{label}</Label>
+      <div class="flex w-full max-w-full min-w-0">
+        <Label for="combobox" class="mr-2 {labelWidth}">{label}</Label>
         <Button
           variant="outline"
-          class="w-full justify-between"
+          class="justify-between truncate {width} max-w-50 shrink-0"
           {...props}
           role="combobox"
           id="combobox"
           aria-expanded={open}
         >
-          {selectedValue || 'Выберите...'}
+          <span class="truncate max-w-50 {width}">{selectedValue || 'Выберите...'}</span>
           <ChevronsUpDownIcon class="ml-2 size-4 shrink-0 opacity-50" />
         </Button>
         <button

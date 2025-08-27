@@ -38,7 +38,7 @@
         postData.password = item.password;
         resp = await bffPost('api/users', postData);
       }
-      goto('/admin/user/list');
+      goto('/admin/user');
     } catch (error) {
       console.log({ error });
       alert(error.msg);

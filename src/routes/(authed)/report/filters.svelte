@@ -60,14 +60,16 @@
 </script>
 
 <Dialog bind:open={isDialogOpen}>
-  <DialogContent>
+  <DialogContent class="p-1 gap-1 max-w-full w-full">
     <DialogHeader>
       <DialogTitle>Фильтрация</DialogTitle>
     </DialogHeader>
-    <UserCombobox bind:values={userValues}></UserCombobox>
-    <ChecklistCombobox bind:values={checklistValues}></ChecklistCombobox>
-    <StoreCombobox bind:values={storeValues}></StoreCombobox>
-    <EmployeeCombobox bind:values={employeeValues}></EmployeeCombobox>
+    <div class="mx-auto max-w-md gap-1 p-6">
+      <UserCombobox bind:values={userValues}></UserCombobox>
+      <ChecklistCombobox bind:values={checklistValues}></ChecklistCombobox>
+      <StoreCombobox bind:values={storeValues}></StoreCombobox>
+      <EmployeeCombobox bind:values={employeeValues}></EmployeeCombobox>
+    </div>
 
     <DialogFooter>
       <Button variant="outline" onclick={closeDialog}>Закрыть</Button>

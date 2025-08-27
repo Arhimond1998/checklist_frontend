@@ -21,6 +21,6 @@
   </Card.Header>
   <Card.Content>
     <div>Логин: {item.login}</div>
-    <div>Почта: {item.mail || ''}</div>
+    <div>Роль: {item.name_role || ''}</div>
   </Card.Content>
 </Card.Root>

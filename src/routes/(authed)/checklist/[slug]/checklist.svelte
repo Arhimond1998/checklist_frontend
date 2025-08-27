@@ -14,11 +14,15 @@
     DialogHeader,
     DialogTitle
   } from '$lib/components/ui/dialog';
+
   import { goto } from '$app/navigation';
+  import { Textarea } from '$lib/components/ui/textarea';
+  import Label from '$lib/components/ui/label/label.svelte';
   const { data, editable } = $props();
   let id_checklist = data.id_checklist;
   let items = $state(data.data);
   let id_employee = $state([]);
+  let commentary = $state(data.commentary);
   //   let total = $derived(items.reduce((prev, cur) => prev + cur.items.length, 0));
   let total = $derived.by(() => {
     let total_ = 0;
@@ -66,6 +70,7 @@
     }
     const saveData = {
       id_checklist: id_checklist,
+      commentary: commentary,
       data: { data: $state.snapshot(items) },
       max_score: $state.snapshot(maxScore),
       score: $state.snapshot(score),
@@ -115,6 +120,18 @@
       </div>
     {/each}
   </div>
+  {#if editable || (!editable && commentary?.length)}
+    <div class="outline-1">
+      <Label for="comment">Комментарий:</Label>
+      <Textarea
+        class="rounded-md p-4"
+        id="comment"
+        placeholder="Тут можно оставить комментарий"
+        bind:value={commentary}
+        readonly={!editable}
+      ></Textarea>
+    </div>
+  {/if}
 </Panel>
 
 <Dialog bind:open={isDialogOpen}>
