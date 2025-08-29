@@ -11,7 +11,7 @@
     item = $bindable({
       id_component: null,
       name: '',
-      code: '',
+      code: ''
     })
   } = $props();
   let isLoading = $state(false);
@@ -21,14 +21,14 @@
       let resp;
       const postData = {
         name: item.name,
-        code: item.code,
+        code: item.code
       };
       if (item.id_component) {
         resp = await bffPut(`api/components/${item.id_component}`, postData);
       } else {
         resp = await bffPost('api/components', postData);
       }
-      goto('/admin/component/list');
+      goto('/admin/component');
     } catch (error) {
       console.log({ error });
       alert(error.msg);

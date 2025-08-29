@@ -31,7 +31,7 @@
       } else {
         resp = await bffPost('api/employees', postData);
       }
-      goto('/admin/employee/list');
+      goto('/admin/employee');
     } catch (error) {
       console.log({ error });
       alert(error.msg);

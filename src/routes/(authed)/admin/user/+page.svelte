@@ -47,12 +47,6 @@
     </div>
   {:else}
     <label for="return_btn">Пользователей нет.</label>
-    <Button
-      id="return_btn"
-      onclick={() => {
-        goto('/admin/user');
-      }}>Назад</Button
-    >
   {/if}
 </Panel>
 <ConfirmDialog onConfirmAsync={onclick} bind:isDialogOpen btnVariant="destructive" delay={1}

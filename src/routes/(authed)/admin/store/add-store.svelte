@@ -2,7 +2,6 @@
   import { Input } from '$lib/components/ui/input';
   import { Button } from '$lib/components/ui/button';
   import { Label } from '$lib/components/ui/label';
-  import * as Card from '$lib/components/ui/card';
   import { bffPost, bffPut } from '$lib/utils';
   import { goto } from '$app/navigation';
   import Page from '../+page.svelte';
@@ -27,7 +26,7 @@
       } else {
         resp = await bffPost('api/stores', postData);
       }
-      goto('/admin/store/list');
+      goto('/admin/store');
     } catch (error) {
       console.log({ error });
       alert(error.msg);

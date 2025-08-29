@@ -31,7 +31,7 @@
       } else {
         resp = await bffPost('api/roles', postData);
       }
-      goto('/admin/role/list');
+      goto('/admin/role');
     } catch (error) {
       console.log({ error });
       alert(error.msg);
