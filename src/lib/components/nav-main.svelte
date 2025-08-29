@@ -3,7 +3,8 @@
   import * as Sidebar from '$lib/components/ui/sidebar/index.js';
   import ChevronRightIcon from '@lucide/svelte/icons/chevron-right';
   import RoleGuard from '$lib/components/RoleGuard.svelte';
-    import type { List } from '@lucide/svelte';
+  import { useSidebar } from '$lib/components/ui/sidebar/context.svelte';
+  const sidebar = useSidebar();
   let {
     items
   }: {
@@ -13,8 +14,8 @@
       // This should be `Component` after @lucide/svelte updates types
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       icon: any;
-      roles: string[],
-      components: string[],
+      roles: string[];
+      components: string[];
       isActive?: boolean;
       items?: {
         title: string;
@@ -34,10 +35,18 @@
             <Sidebar.MenuItem {...props}>
               <Sidebar.MenuButton tooltipContent={mainItem.title}>
                 {#snippet child({ props })}
-                  <a href={mainItem.url} {...props}>
-                    <mainItem.icon />
-                    <span>{mainItem.title}</span>
-                  </a>
+                  <button
+                    onclick={() => {
+                      if (sidebar.isMobile && sidebar.open) {
+                        sidebar.toggle();
+                      }
+                    }}
+                  >
+                    <a href={mainItem.url} {...props}>
+                      <mainItem.icon />
+                      <span>{mainItem.title}</span>
+                    </a>
+                  </button>
                 {/snippet}
               </Sidebar.MenuButton>
               {#if mainItem.items?.length}
