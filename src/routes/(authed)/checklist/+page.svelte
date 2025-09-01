@@ -1,52 +1,27 @@
 <script>
   import { goto } from '$app/navigation';
-  import Button from '$lib/components/ui/button/button.svelte';
-  import ChecklistCard from './checklist-card.svelte';
+  import Card from '../checklist/checklist-card.svelte';
+  import Panel from '$lib/components/panel/panel.svelte';
 
   let { data } = $props();
-  let colsNum = $state(6);
-  $inspect(colsNum);
+  let items = $state(data.data);
 
   function onclick(id_checklist) {
     return () => {
       goto(`/checklist/${id_checklist}`);
     };
   }
-
-  function handleResize(event) {
-    const windowWidth = event.target.innerWidth;
-
-    let cardsNum = Math.floor(Math.min(Math.max(windowWidth / 300, 1), 6));
-    if (cardsNum !== 1 && cardsNum !== 6) {
-      if (cardsNum > 3) {
-        cardsNum = 3;
-      } else {
-        cardsNum = 1;
-      }
-    }
-
-    colsNum = cardsNum;
-  }
 </script>
 
-<svelte:window on:resize={handleResize} />
-{#if data.data.length > 0}
-  <div class="mt-8 grid gap-8 grid-cols-{colsNum} max-w-500">
-    {#each data.data as checklistItem (checklistItem.id_checklist)}
-      <ChecklistCard
-        title={checklistItem.title}
-        id_checklist={checklistItem.id_checklist}
-        onclick={onclick(checklistItem.id_checklist)}
-        text={'Открыть'}
-      ></ChecklistCard>
-    {/each}
-  </div>
-{:else}
-  <label for="return_btn">Чеклистов нет.</label>
-  <Button
-    id="return_btn"
-    onclick={() => {
-      goto('/constructor/add');
-    }}>Добавить</Button
-  >
-{/if}
+<Panel>
+  {#if items.length > 0}
+    <div class="mt-2 grid max-w-500 grid-cols-1 gap-2">
+      {#each items as checklistItem (checklistItem.id_checklist)}
+        <Card item={checklistItem} onClick={onclick(checklistItem.id_checklist)} text={'Открыть'}
+        ></Card>
+      {/each}
+    </div>
+  {:else}
+    <label for="return_btn">Пользователей нет.</label>
+  {/if}
+</Panel>

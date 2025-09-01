@@ -13,7 +13,15 @@
   import ConfirmDialog from '$lib/components/ConfirmDialog.svelte';
 
   // Инициализируем состояние чеклиста
-  let { checklistData = $bindable({ id_checklist: null, title: '', items: [] }) } = $props();
+  let {
+    checklistData = $bindable({
+      id_checklist: null,
+      title: '',
+      items: [],
+      id_store: null, 
+      id_role: null
+    })
+  } = $props();
   let isDeleteOpen = $state(false);
   // let items = $state([]);
   let saveWindowOpen = $state(false);
@@ -132,7 +140,12 @@
 </Panel>
 
 <SaveWindow bind:isDialogOpen={saveWindowOpen} bind:saveData={checklistData}></SaveWindow>
-<ConfirmDialog delay={1} text="Удалить группу?" btnVariant='destructive' bind:isDialogOpen={isDeleteOpen} onConfirm={onClickDelete}
+<ConfirmDialog
+  delay={1}
+  text="Удалить группу?"
+  btnVariant="destructive"
+  bind:isDialogOpen={isDeleteOpen}
+  onConfirm={onClickDelete}
 ></ConfirmDialog>
 
 <style>

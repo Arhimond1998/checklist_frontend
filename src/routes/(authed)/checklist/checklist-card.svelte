@@ -1,19 +1,28 @@
 <script>
+  import { goto } from '$app/navigation';
   import Button from '$lib/components/ui/button/button.svelte';
   import * as Card from '$lib/components/ui/card/index.js';
-  let { title, id_checklist, onclick, text, ...restProps } = $props();
-  
+  import Menu from './dropdown-action.svelte';
+
+  let { item, onDelete, onUpdate, onDuplicate, onClick, text } = $props();
 </script>
 
-<Card.Root class="w-full max-w-sm">
+<Card.Root class="relative w-full max-w-sm gap-2 py-2">
+  {#if [onDelete, onUpdate, onDuplicate].some(Boolean)}
+    <div class="absolute top-1 right-1">
+      <Menu {onUpdate} {onDelete} {onDuplicate} />
+    </div>
+  {/if}
   <Card.Header>
-    <Card.Title>{title}</Card.Title>
-
+    <Card.Title>{item.title}</Card.Title>
   </Card.Header>
   <Card.Content>
-    <div>content</div>
+    <div>Магазин: {item.name_store ? item.name_store : ''}</div>
+    <div>Роль: {item.name_role ? item.name_role : ''}</div>
   </Card.Content>
-  <Card.Footer class="flex-col gap-2">
-    <Button {onclick} class="w-full">{text}</Button>
-  </Card.Footer>
+  {#if onClick}
+    <Card.Footer class="flex-col gap-2">
+      <Button onclick={onClick} class="w-full">{text}</Button>
+    </Card.Footer>
+  {/if}
 </Card.Root>

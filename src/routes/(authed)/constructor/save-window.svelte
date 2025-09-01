@@ -15,22 +15,20 @@
   import { bffPut, bffPost } from '$lib/utils';
 
   let { saveData = $bindable(), isDialogOpen = $bindable(false) } = $props();
-  let storeValues = $state([]);
-  let roleValues = $state([]);
   let saveClick = async function () {
-    if (!storeValues?.length) {
+    if (!saveData.id_store?.length) {
       alert('Привяжите магазин');
       return;
     }
-    if (!roleValues?.length) {
+    if (!saveData.id_role?.length) {
       alert('Привяжите роль');
       return;
     }
     const data = $state.snapshot(saveData);
     const postData = {
       title: data.title,
-      id_store: storeValues[0],
-      id_role: roleValues[0],
+      id_store: saveData.id_store[0],
+      id_role: saveData.id_role[0],
       data: { ...data.items }
     };
     console.log({ postData });
@@ -69,8 +67,8 @@
       bind:value={saveData.title}
     />
 
-    <StoreCombobox bind:values={storeValues} isSingle={true}></StoreCombobox>
-    <RoleCombobox bind:values={roleValues} isSingle={true}></RoleCombobox>
+    <StoreCombobox bind:values={saveData.id_store} isSingle={true}></StoreCombobox>
+    <RoleCombobox bind:values={saveData.id_role} isSingle={true}></RoleCombobox>
 
     <DialogFooter>
       <Button variant="outline" onclick={closeDialog}>Закрыть</Button>

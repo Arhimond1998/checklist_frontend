@@ -20,6 +20,14 @@
     width = $bindable('w-30')
   } = $props();
 
+  if (isSingle && values && !Array.isArray(values)) {
+    values = [values];
+  }
+
+  if (values == null) {
+    values = [];
+  }
+
   let open = $state(false);
   let triggerRef = $state(null);
 
@@ -49,16 +57,7 @@
 
   function handleClearClick(event) {
     event.stopPropagation();
-    // Очищаем выбранное значение
     values = [];
-
-    // // Вызываем пользовательскую функцию, если она предоставлена через props
-    // if (props.onClear) {
-    //   props.onClear();
-    // }
-
-    // // Отправляем кастомное событие
-    // dispatch('cleared');
   }
 
   // We want to refocus the trigger button when the user selects
@@ -85,7 +84,7 @@
           id="combobox"
           aria-expanded={open}
         >
-          <span class="truncate max-w-50 {width}">{selectedValue || 'Выберите...'}</span>
+          <span class="max-w-50 truncate {width}">{selectedValue || 'Выберите...'}</span>
           <ChevronsUpDownIcon class="ml-2 size-4 shrink-0 opacity-50" />
         </Button>
         <button

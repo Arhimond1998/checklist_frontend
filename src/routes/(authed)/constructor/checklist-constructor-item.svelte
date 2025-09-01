@@ -9,7 +9,13 @@
   import SelectWeight from './select-weight.svelte';
   import ConfirmDialog from '$lib/components/ConfirmDialog.svelte';
   let {
-    item = $bindable({ weight: 1, files: [], text: '', id: null, description: '' }),
+    item = $bindable({
+      weight: 1,
+      files: [],
+      text: '',
+      id: null,
+      description: ''
+    }),
     removeItem,
     updateItem
   } = $props();
