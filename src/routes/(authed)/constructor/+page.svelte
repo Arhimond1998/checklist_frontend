@@ -43,12 +43,11 @@
           }}
           onUpdate={() => goto(`/constructor/edit/${checklistItem.id_checklist}`)}
           onDuplicate={() => goto(`/constructor/duplicate/${checklistItem.id_checklist}`)}
-          
         ></Card>
       {/each}
     </div>
   {:else}
-    <label for="return_btn">Пользователей нет.</label>
+    <label for="return_btn">Нет доступных чеклистов.</label>
   {/if}
 </Panel>
 <ConfirmDialog onConfirmAsync={onclick} bind:isDialogOpen btnVariant="destructive" delay={1}
