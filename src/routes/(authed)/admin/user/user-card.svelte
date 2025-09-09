@@ -14,7 +14,11 @@
 
 <Card.Root class="relative w-full max-w-sm gap-2 py-2">
   <div class="absolute top-1 right-1">
-    <Menu onUpdate={() => goto(`/admin/user/edit/${item.id_user}`)} {onDelete} />
+    <Menu
+      onUpdate={() => goto(`/admin/user/edit/${item.id_user}`)}
+      {onDelete}
+      onChangePassword={() => goto(`/admin/user/change_password/${item.id_user}`)}
+    />
   </div>
   <Card.Header>
     <Card.Title>{fullname}</Card.Title>

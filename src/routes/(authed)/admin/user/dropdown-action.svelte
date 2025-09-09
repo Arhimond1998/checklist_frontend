@@ -3,7 +3,7 @@
   import { Button } from '$lib/components/ui/button/index.js';
   import { TrashIcon, PenIcon, WaypointsIcon } from '@lucide/svelte';
   import DropdownMenuSeparator from '$lib/components/ui/dropdown-menu/dropdown-menu-separator.svelte';
-  let { onUpdate, onDelete } = $props();
+  let { onUpdate, onDelete, onChangePassword } = $props();
 </script>
 
 <DropdownMenu.Root>
@@ -19,6 +19,12 @@
       </DropdownMenu.Item>
       <DropdownMenu.Item onSelect={onDelete}>
         <TrashIcon></TrashIcon>Удалить
+      </DropdownMenu.Item>
+    </DropdownMenu.Group>
+    <DropdownMenuSeparator></DropdownMenuSeparator>
+    <DropdownMenu.Group>
+      <DropdownMenu.Item onSelect={onChangePassword}>
+        <PenIcon></PenIcon>Сменить пароль
       </DropdownMenu.Item>
     </DropdownMenu.Group>
     <DropdownMenuSeparator></DropdownMenuSeparator>
