@@ -84,7 +84,9 @@
           id="combobox"
           aria-expanded={open}
         >
-          <span class="max-w-50 truncate {width}">{selectedValue || 'Выберите...'}</span>
+          <span class="max-w-50 truncate {width} {selectedValue ? '' : 'text-gray-400'}"
+            >{selectedValue || 'Выберите...'}</span
+          >
           <ChevronsUpDownIcon class="ml-2 size-4 shrink-0 opacity-50" />
         </Button>
         <button
