@@ -2,6 +2,7 @@
   import { page } from '$app/stores';
   import AppSidebar from '$lib/components/app-sidebar.svelte';
   import * as Breadcrumb from '$lib/components/ui/breadcrumb/index.js';
+  import { ScrollArea } from '$lib/components/ui/scroll-area/index.js';
   import { Separator } from '$lib/components/ui/separator/index.js';
   import * as Sidebar from '$lib/components/ui/sidebar/index.js';
   import { setContext } from 'svelte';
@@ -36,7 +37,8 @@
         {/if}
       {/each}
     </header>
-
-    {@render children()}
+    <ScrollArea class="h-full w-full overflow-auto">
+      {@render children()}
+    </ScrollArea>
   </Sidebar.Inset>
 </Sidebar.Provider>

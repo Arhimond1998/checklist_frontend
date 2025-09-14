@@ -8,6 +8,8 @@
   import DropdownMenu from './dropdown-menu.svelte';
   import SelectWeight from './select-weight.svelte';
   import ConfirmDialog from '$lib/components/ConfirmDialog.svelte';
+  import ChevronUp from '@lucide/svelte/icons/chevron-up';
+  import ChevronDown from '@lucide/svelte/icons/chevron-down';
   let {
     item = $bindable({
       weight: 1,
@@ -17,7 +19,11 @@
       description: ''
     }),
     removeItem,
-    updateItem
+    updateItem,
+    onMoveUp,
+    onMoveDown,
+    totalItems = 0,
+    itemIndex = 0
   } = $props();
 
   let isOpenDesc = $state(false);
@@ -35,6 +41,24 @@
 
 <div class="checklist-item-total w-full">
   <div class="checklist-item w-full p-3">
+    <div class="mr-1 flex flex-col">
+      <Button
+        onclick={onMoveUp}
+        disabled={itemIndex === 0}
+        title="Переместить вверх"
+        class="mb-1 h-7 w-7 p-0"
+      >
+        <ChevronUp size={14} />
+      </Button>
+      <Button
+        onclick={onMoveDown}
+        disabled={itemIndex === totalItems - 1}
+        title="Переместить вниз"
+        class="h-7 w-7 p-0"
+      >
+        <ChevronDown size={14} />
+      </Button>
+    </div>
     <Button class="remove-btn" onclick={() => (isDeleteOpen = true)} title="Удалить задачу"
       ><Trash_2 /></Button
     >

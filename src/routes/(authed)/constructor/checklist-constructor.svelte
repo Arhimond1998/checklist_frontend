@@ -10,6 +10,8 @@
   import { v4 as uuidv4 } from 'uuid';
   import { Separator } from '$lib/components/ui/separator/index.js';
   import Trash_2 from '@lucide/svelte/icons/trash-2';
+  import ChevronUp from '@lucide/svelte/icons/chevron-up';
+  import ChevronDown from '@lucide/svelte/icons/chevron-down';
   import ConfirmDialog from '$lib/components/ConfirmDialog.svelte';
 
   // Инициализируем состояние чеклиста
@@ -18,7 +20,7 @@
       id_checklist: null,
       title: '',
       items: [],
-      id_store: null, 
+      id_store: null,
       id_role: null
     })
   } = $props();
@@ -95,7 +97,41 @@
   async function onSave(a, b, c) {
     saveWindowOpen = true;
   }
-  $inspect(checklistData);
+
+  function moveGroupUp(index) {
+    if (index <= 0) return;
+    [checklistData.items[index], checklistData.items[index - 1]] = [
+      checklistData.items[index - 1],
+      checklistData.items[index]
+    ];
+  }
+
+  function moveGroupDown(index) {
+    if (index >= checklistData.items.length - 1) return;
+    [checklistData.items[index], checklistData.items[index + 1]] = [
+      checklistData.items[index + 1],
+      checklistData.items[index]
+    ];
+  }
+
+  // Функции для перемещения задач внутри групп
+  function moveItemUp(groupId, itemIndex) {
+    const group = checklistData.items.find((g) => g.id === groupId);
+    if (!group || itemIndex <= 0) return;
+
+    const items = [...group.items];
+    [items[itemIndex], items[itemIndex - 1]] = [items[itemIndex - 1], items[itemIndex]];
+    group.items = items;
+  }
+
+  function moveItemDown(groupId, itemIndex) {
+    const group = checklistData.items.find((g) => g.id === groupId);
+    if (!group || itemIndex >= group.items.length - 1) return;
+
+    const items = [...group.items];
+    [items[itemIndex], items[itemIndex + 1]] = [items[itemIndex + 1], items[itemIndex]];
+    group.items = items;
+  }
 </script>
 
 <Panel>
@@ -114,7 +150,25 @@
   <div class="checklist-container w-full">
     {#each checklistData.items as group, groupIndex (group.id)}
       <div class="p-3 outline-3">
-        <div class="flex items-center gap-2.5">
+        <div class="flex items-center">
+          <div class="mr-1 flex flex-col">
+            <Button
+              onclick={() => moveGroupUp(groupIndex)}
+              disabled={groupIndex === 0}
+              title="Переместить вверх"
+              class="mb-1 h-7 w-7 p-0"
+            >
+              <ChevronUp size={14} />
+            </Button>
+            <Button
+              onclick={() => moveGroupDown(groupIndex)}
+              disabled={groupIndex === checklistData.items.length - 1}
+              title="Переместить вниз"
+              class="h-7 w-7 p-0"
+            >
+              <ChevronDown size={14} />
+            </Button>
+          </div>
           <Button class="remove-btn" onclick={removeGroup(group.id)} title="Удалить группу"
             ><Trash_2 /></Button
           >
@@ -127,6 +181,10 @@
             bind:item={group.items[i]}
             removeItem={removeItem(group.id)}
             updateItem={updateItem(group.id)}
+            onMoveUp={() => moveItemUp(group.id, i)}
+            onMoveDown={() => moveItemDown(group.id, i)}
+            totalItems={group.items.length}
+            itemIndex={i}
           ></ChecklistConstructorItem>
         {/each}
 

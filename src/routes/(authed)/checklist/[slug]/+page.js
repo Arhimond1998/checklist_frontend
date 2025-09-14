@@ -38,7 +38,7 @@ async function getUserStores(id_user) {
   const resp = await bffGet('api/store_users');
   let result = [];
   if (resp.data) {
-    result = resp.data.filter((r) => r.id_user === id_user).map((r) => r.id_store);
+    result = resp.data.filter((r) => r.id_user === id_user || id_user === 1).map((r) => r.id_store);
   }
   return result;
 }

@@ -12,11 +12,13 @@
   } from '$lib/components/ui/dialog';
   import { DatePicker } from 'bits-ui';
   import Button from '$lib/components/ui/button/button.svelte';
+  import DateField from '$lib/components/date-field.svelte';
   let { isDialogOpen = $bindable(false), filters = $bindable([]) } = $props();
   let userValues = $state([]);
   let checklistValues = $state([]);
   let storeValues = $state([]);
   let employeeValues = $state([]);
+  let dateValue = $state();
   let filterValues = $derived.by(() => {
     let result = [];
     if (userValues?.length) {
@@ -47,6 +49,13 @@
         value: employeeValues
       });
     }
+    if (dateValue) {
+      result.push({
+        property: 'dt',
+        operator: 'date_eq',
+        value: dateValue
+      });
+    }
     return result;
   });
 
@@ -60,7 +69,7 @@
 </script>
 
 <Dialog bind:open={isDialogOpen}>
-  <DialogContent class="p-1 gap-1 max-w-full w-full">
+  <DialogContent class="w-full max-w-full gap-1 p-1">
     <DialogHeader>
       <DialogTitle>Фильтрация</DialogTitle>
     </DialogHeader>
@@ -69,6 +78,7 @@
       <ChecklistCombobox bind:values={checklistValues}></ChecklistCombobox>
       <StoreCombobox bind:values={storeValues}></StoreCombobox>
       <EmployeeCombobox bind:values={employeeValues}></EmployeeCombobox>
+      <DateField bind:value={dateValue}></DateField>
     </div>
 
     <DialogFooter>

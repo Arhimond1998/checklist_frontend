@@ -49,8 +49,10 @@
 </script>
 
 <Filters bind:isDialogOpen bind:filters></Filters>
-<Button onclick={() => (isDialogOpen = true)}>Фильтры</Button>
-<Button onclick={onFindClick}>Найти</Button>
+<div class="mt-8 grid gap-1 grid-cols-{colsNum} max-w-50">
+  <Button onclick={() => (isDialogOpen = true)}>Фильтры</Button>
+  <Button onclick={onFindClick}>Найти</Button>
+
 {#if items.length > 0}
   <div class="mt-8 grid gap-8 grid-cols-{colsNum} max-w-500">
     {#each items as checklistItem (checklistItem.id_checklist_user_report)}
@@ -87,3 +89,4 @@
     }}>На главную страницу</Button
   >
 {/if}
+</div>
