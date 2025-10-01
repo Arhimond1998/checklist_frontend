@@ -5,6 +5,7 @@
   import QuestionMarkIcon from '@lucide/svelte/icons/message-circle-question';
   import PhotoViewer from '$lib/components/photo-viewer/photo-viewer.svelte';
   import { XMarkCheckbox } from '$lib/components/ui/checkbox';
+  import AttachButton from '$lib/components/attach-button/button.svelte';
 
   import {
     Dialog,
@@ -23,6 +24,10 @@
     ref = $bindable(null)
   } = $props();
   let isDialogOpen = $state(false);
+
+  if (item) {
+    item.attached_files = item.attached_files ? item.attached_files : [];
+  }
 
   let status = 0;
 
@@ -52,7 +57,11 @@
       checked={item.checked === 1}
       name={item.id}
     />
+
     <!-- <XMarkCheckbox bind:ref {indeterminate} onclick={onCheckClick} {checked} name={item.id} /> -->
+    {#if editable}
+      <AttachButton bind:files={item.attached_files} />
+    {/if}
     {#if index !== null}
       <div class="mr-2">{index}.</div>
     {/if}
@@ -66,6 +75,9 @@
   <div>
     <PhotoViewer files={item.files} canDelete={false} isBlob={false} />
   </div>
+    <div>
+      <PhotoViewer files={item.attached_files} canDelete={!!editable} isBlob={false} />
+    </div>
 </div>
 
 <Dialog bind:open={isDialogOpen}>
