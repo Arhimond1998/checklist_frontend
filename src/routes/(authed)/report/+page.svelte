@@ -64,7 +64,7 @@
           </Card.Header>
           <Card.Content>
             <div>ФИО: {checklistItem.user_fullname}</div>
-            <div>Время заполнения: {checklistItem.dt}</div>
+            <div>Время сохранения: {checklistItem.dt}</div>
             <div>Магазин: {checklistItem.name_store} ({checklistItem.code_store})</div>
             <div>Работник: {checklistItem.employee_fullname}</div>
           </Card.Content>
