@@ -18,7 +18,8 @@
   let checklistValues = $state([]);
   let storeValues = $state([]);
   let employeeValues = $state([]);
-  let dateValue = $state();
+  let dateValueFrom = $state();
+  let dateValueTo = $state();
   let filterValues = $derived.by(() => {
     let result = [];
     if (userValues?.length) {
@@ -49,11 +50,18 @@
         value: employeeValues
       });
     }
-    if (dateValue) {
+    if (dateValueFrom) {
       result.push({
         property: 'dt',
-        operator: 'date_eq',
-        value: dateValue
+        operator: 'date_ge',
+        value: dateValueFrom
+      });
+    }
+    if (dateValueTo) {
+      result.push({
+        property: 'dt',
+        operator: 'date_le',
+        value: dateValueTo
       });
     }
     return result;
@@ -78,7 +86,8 @@
       <ChecklistCombobox bind:values={checklistValues}></ChecklistCombobox>
       <StoreCombobox bind:values={storeValues}></StoreCombobox>
       <EmployeeCombobox bind:values={employeeValues}></EmployeeCombobox>
-      <DateField bind:value={dateValue}></DateField>
+      <DateField label={'Дата с'} bind:value={dateValueFrom}></DateField>
+      <DateField label={'Дата по'} bind:value={dateValueTo}></DateField>
     </div>
 
     <DialogFooter>
